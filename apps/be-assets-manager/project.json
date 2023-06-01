@@ -14,7 +14,7 @@
         "outputPath": "dist/apps/be-assets-manager",
         "main": "apps/be-assets-manager/src/main.ts",
         "tsConfig": "apps/be-assets-manager/tsconfig.app.json",
-        "assets": ["apps/be-assets-manager/src/assets"],
+        "assets": [],
         "isolatedConfig": true,
         "webpackConfig": "apps/be-assets-manager/webpack.config.js"
       },

@@ -14,7 +14,7 @@
         "outputPath": "dist/apps/be-templates",
         "main": "apps/be-templates/src/main.ts",
         "tsConfig": "apps/be-templates/tsconfig.app.json",
-        "assets": ["apps/be-templates/src/assets"],
+        "assets": [],
         "isolatedConfig": true,
         "webpackConfig": "apps/be-templates/webpack.config.js"
       },

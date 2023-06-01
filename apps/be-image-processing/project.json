@@ -14,7 +14,7 @@
         "outputPath": "dist/apps/be-image-processing",
         "main": "apps/be-image-processing/src/main.ts",
         "tsConfig": "apps/be-image-processing/tsconfig.app.json",
-        "assets": ["apps/be-image-processing/src/assets"],
+        "assets": [],
         "isolatedConfig": true,
         "webpackConfig": "apps/be-image-processing/webpack.config.js"
       },

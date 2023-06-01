@@ -14,7 +14,7 @@
         "outputPath": "dist/apps/be-pages",
         "main": "apps/be-pages/src/main.ts",
         "tsConfig": "apps/be-pages/tsconfig.app.json",
-        "assets": ["apps/be-pages/src/assets"],
+        "assets": [],
         "isolatedConfig": true,
         "webpackConfig": "apps/be-pages/webpack.config.js"
       },

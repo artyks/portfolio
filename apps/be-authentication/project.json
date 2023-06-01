@@ -14,7 +14,7 @@
         "outputPath": "dist/apps/be-authentication",
         "main": "apps/be-authentication/src/main.ts",
         "tsConfig": "apps/be-authentication/tsconfig.app.json",
-        "assets": ["apps/be-authentication/src/assets"],
+        "assets": [],
         "isolatedConfig": true,
         "webpackConfig": "apps/be-authentication/webpack.config.js"
       },
