@@ -1,6 +1,6 @@
 import { Controller, Get, Post } from '@nestjs/common';
 import {
-  ENDPOINT_SLUG,
+  ENDPOINT_PAGES_SLUG,
   CREATE_PAGE_DRAFT_SLUG,
   ARCHIVE_PAGE_SLUG,
   PUBLISH_PAGE_SLUG,
@@ -12,7 +12,7 @@ import {
   FIND_MANY_PAGES_PUBLISHED_SLUG,
 } from './constants';
 
-@Controller(ENDPOINT_SLUG)
+@Controller(ENDPOINT_PAGES_SLUG)
 export class PagesController {
   @Post(CREATE_PAGE_DRAFT_SLUG)
   createDraft() {

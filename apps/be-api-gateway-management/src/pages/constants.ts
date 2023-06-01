@@ -1,4 +1,4 @@
-const ENDPOINT_SLUG = 'pages';
+const ENDPOINT_PAGES_SLUG = 'pages';
 
 /**
  * Command slugs
@@ -18,7 +18,7 @@ const FIND_ONE_PAGE_PUBLISHED_SLUG = 'find-one-published';
 const FIND_MANY_PAGES_PUBLISHED_SLUG = 'find-many-published';
 
 export {
-  ENDPOINT_SLUG,
+  ENDPOINT_PAGES_SLUG,
   CREATE_PAGE_DRAFT_SLUG,
   ARCHIVE_PAGE_SLUG,
   PUBLISH_PAGE_SLUG,
