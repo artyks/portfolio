@@ -34,7 +34,7 @@ export class TemplatesController {
   }
 
   @Get(FIND_ONE_TEMPLATE_SLUG)
-  findOne(@Param() { id }: FindOneTemplateParams) {
+  findOne(@Param() params: FindOneTemplateParams) {
     return;
   }
 
