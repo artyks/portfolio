@@ -41,6 +41,7 @@
     "targets": {}
   },
   "dependencies": {
+    "@eventstore/db-client": "^5.0.1",
     "@nestjs/common": "^9.1.1",
     "@nestjs/config": "^2.3.2",
     "@nestjs/core": "^9.1.1",

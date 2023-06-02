@@ -19,6 +19,5 @@ import { TemplatesModule } from './templates/templates.module';
     TemplatesModule,
   ],
   controllers: [AppController],
-  providers: [],
 })
 export class AppModule {}
