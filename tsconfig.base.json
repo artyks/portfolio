@@ -22,6 +22,7 @@
       "@be-pages/constants": ["libs/be-pages/constants/src/index.ts"],
       "@be-pages/dtos": ["libs/be-pages/dtos/src/index.ts"],
       "@be-pages/types": ["libs/be-pages/types/src/index.ts"],
+      "@be-pages/utility": ["libs/be-pages/utility/src/index.ts"],
       "@be-templates/constants": ["libs/be-templates/constants/src/index.ts"],
       "@be-templates/dtos": ["libs/be-templates/dtos/src/index.ts"],
       "@be-templates/utility": ["libs/be-templates/utility/src/index.ts"],

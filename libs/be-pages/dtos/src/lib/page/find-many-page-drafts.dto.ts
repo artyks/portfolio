@@ -1,0 +1,3 @@
+class FindManyPageDraftsDto {}
+
+export { FindManyPageDraftsDto };
