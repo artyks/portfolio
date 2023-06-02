@@ -11,8 +11,7 @@ const REPLACE_TEMPLATE_SLUG = 'replace';
 /**
  * Query slugs
  */
-const FIND_ONE_TEMPLATE_SLUG = 'find-one-template';
-const FIND_MANY_TEMPLATES_SLUG = 'find-many-templates';
+const FIND_ONE_TEMPLATE_SLUG = ':id';
 
 export {
   ENDPOINT_TEMPLATES_SLUG,
@@ -21,5 +20,4 @@ export {
   PUBLISH_TEMPLATE__SLUG,
   REPLACE_TEMPLATE_SLUG,
   FIND_ONE_TEMPLATE_SLUG,
-  FIND_MANY_TEMPLATES_SLUG,
 };

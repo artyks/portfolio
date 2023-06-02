@@ -3,7 +3,6 @@ import {
   ARCHIVE_TEMPLATE_SLUG,
   CREATE_TEMPLATE_SLUG,
   ENDPOINT_TEMPLATES_SLUG,
-  FIND_MANY_TEMPLATES_SLUG,
   FIND_ONE_TEMPLATE_SLUG,
   PUBLISH_TEMPLATE__SLUG,
   REPLACE_TEMPLATE_SLUG,
@@ -36,7 +35,7 @@ export class TemplatesController {
     return;
   }
 
-  @Get(FIND_MANY_TEMPLATES_SLUG)
+  @Get()
   findMany() {
     return;
   }
