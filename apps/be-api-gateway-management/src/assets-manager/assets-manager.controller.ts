@@ -1,31 +1,23 @@
-import { Controller, Post } from '@nestjs/common';
-import {
-  ARCHIVE_ASSET_SLUG,
-  ENDPOINT_ASSETS_SLUG,
-  FIND_MANY_ASSETS_ACTIVE_SLUG,
-  FIND_MANY_ASSETS_ARCHIVED_SLUG,
-  UPLOAD_ASSET_SLUG,
-} from './assets-manager.constants';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { ARCHIVE_ASSET_SLUG, ENDPOINT_ASSETS_SLUG, UPLOAD_ASSET_SLUG } from './assets-manager.constants';
+import { ArchiveAssetDto, FindManyAssetsDto, UploadAssetDto } from '@be-assets-manager/dtos';
 
 @Controller(ENDPOINT_ASSETS_SLUG)
-export class AssetsManagerController {
+class AssetsManagerController {
   @Post(UPLOAD_ASSET_SLUG)
-  upload() {
+  upload(@Body() payload: UploadAssetDto) {
     return;
   }
 
   @Post(ARCHIVE_ASSET_SLUG)
-  archive() {
+  archive(@Body() payload: ArchiveAssetDto) {
     return;
   }
 
-  @Post(FIND_MANY_ASSETS_ACTIVE_SLUG)
-  findManyActive() {
-    return;
-  }
-
-  @Post(FIND_MANY_ASSETS_ARCHIVED_SLUG)
-  findManyArchived() {
+  @Get()
+  findMany(@Query() query: FindManyAssetsDto) {
     return;
   }
 }
+
+export { AssetsManagerController };

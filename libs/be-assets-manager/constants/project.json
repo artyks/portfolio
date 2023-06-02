@@ -1,0 +1,26 @@
+{
+  "name": "be-assets-manager-constants",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/be-assets-manager/constants/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/be-assets-manager/constants",
+        "main": "libs/be-assets-manager/constants/src/index.ts",
+        "tsConfig": "libs/be-assets-manager/constants/tsconfig.lib.json",
+        "assets": ["libs/be-assets-manager/constants/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/be-assets-manager/constants/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

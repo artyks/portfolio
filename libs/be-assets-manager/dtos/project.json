@@ -1,0 +1,16 @@
+{
+  "name": "be-assets-manager-dtos",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/be-assets-manager/dtos/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/be-assets-manager/dtos/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}
