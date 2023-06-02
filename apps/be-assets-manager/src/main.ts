@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
@@ -10,8 +10,16 @@ const bootstrap = async () => {
     options: { host, port },
   } = assetsManagerTransport;
   const app = await NestFactory.createMicroservice(AppModule, assetsManagerTransport);
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
+    }),
+  );
   await app.listen();
-  Logger.log(`🚀 Assets Manager is listening on: ${host}:${port}.`);
+  Logger.log(`🚀 Assets Manager Service is listening on: ${host}:${port}.`);
 };
 
 bootstrap();
