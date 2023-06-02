@@ -17,6 +17,7 @@
     "paths": {
       "@be-assets-manager/constants": ["libs/be-assets-manager/constants/src/index.ts"],
       "@be-assets-manager/dtos": ["libs/be-assets-manager/dtos/src/index.ts"],
+      "@be-assets-manager/utility": ["libs/be-assets-manager/utility/src/index.ts"],
       "@be-event-store": ["libs/be-event-store/src/index.ts"],
       "@be-pages/constants": ["libs/be-pages/constants/src/index.ts"],
       "@be-pages/dtos": ["libs/be-pages/dtos/src/index.ts"],
