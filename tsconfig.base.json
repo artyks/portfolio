@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@be-templates/constants": ["libs/be-templates/constants/src/index.ts"],
+      "@be-templates/dtos": ["libs/be-templates/dtos/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

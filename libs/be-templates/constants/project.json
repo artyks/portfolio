@@ -1,0 +1,26 @@
+{
+  "name": "be-templates-constants",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/be-templates/constants/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/be-templates/constants",
+        "main": "libs/be-templates/constants/src/index.ts",
+        "tsConfig": "libs/be-templates/constants/tsconfig.lib.json",
+        "assets": ["libs/be-templates/constants/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/be-templates/constants/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}
