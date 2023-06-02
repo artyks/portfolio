@@ -1,0 +1,26 @@
+{
+  "name": "be-pages-types",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/be-pages/types/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/be-pages/types",
+        "main": "libs/be-pages/types/src/index.ts",
+        "tsConfig": "libs/be-pages/types/tsconfig.lib.json",
+        "assets": ["libs/be-pages/types/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/be-pages/types/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

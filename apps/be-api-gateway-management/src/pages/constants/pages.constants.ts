@@ -1,4 +1,8 @@
+/**
+ * Controller slugs
+ */
 const ENDPOINT_PAGES_SLUG = 'pages';
+const ENDPOINT_PAGE_DRAFTS_SLUG = 'page-drafts';
 
 /**
  * Command slugs
@@ -16,6 +20,7 @@ const FIND_ONE_PAGE_SLUG = ':id';
 
 export {
   ENDPOINT_PAGES_SLUG,
+  ENDPOINT_PAGE_DRAFTS_SLUG,
   CREATE_PAGE_DRAFT_SLUG,
   ARCHIVE_PAGE_SLUG,
   PUBLISH_PAGE_SLUG,

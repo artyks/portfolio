@@ -1,9 +1,9 @@
 enum TemplateElementType {
-  TEXT = 'text',
-  NUMBER = 'number',
-  MULTIPLE_CHOICE = 'multiple_choice',
-  DATE_TIME = 'date_time',
-  ASSET = 'asset',
+  TEXT = 'TEXT',
+  NUMBER = 'NUMBER',
+  MULTIPLE_CHOICE = 'MULTIPLE_CHOICE',
+  DATE_TIME = 'DATE_TIME',
+  ASSET = 'ASSET',
 }
 
 export { TemplateElementType };

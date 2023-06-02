@@ -1,0 +1,22 @@
+/**
+ * Controller slug
+ */
+const ENDPOINT_PAGE_ELEMENTS_SLUG = 'page-elements';
+
+/**
+ * Command slugs
+ */
+const SET_PAGE_ASSET_ELEMENT_VALUE_SLUG = 'set-asset-value';
+const SET_PAGE_DATE_TIME_ELEMENT_VALUE_SLUG = 'set-date-time-value';
+const SET_PAGE_TEXT_ELEMENT_VALUE_SLUG = 'set-text-value';
+const SET_PAGE_NUMBER_ELEMENT_VALUE_SLUG = 'set-number-value';
+const SET_PAGE_MULTIPLE_CHOICE_ELEMENT_VALUE_SLUG = 'set-multiple-choice-value';
+
+export {
+  ENDPOINT_PAGE_ELEMENTS_SLUG,
+  SET_PAGE_ASSET_ELEMENT_VALUE_SLUG,
+  SET_PAGE_DATE_TIME_ELEMENT_VALUE_SLUG,
+  SET_PAGE_TEXT_ELEMENT_VALUE_SLUG,
+  SET_PAGE_NUMBER_ELEMENT_VALUE_SLUG,
+  SET_PAGE_MULTIPLE_CHOICE_ELEMENT_VALUE_SLUG,
+};

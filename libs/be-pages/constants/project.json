@@ -1,0 +1,26 @@
+{
+  "name": "be-pages-constants",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/be-pages/constants/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/be-pages/constants",
+        "main": "libs/be-pages/constants/src/index.ts",
+        "tsConfig": "libs/be-pages/constants/tsconfig.lib.json",
+        "assets": ["libs/be-pages/constants/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/be-pages/constants/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}
