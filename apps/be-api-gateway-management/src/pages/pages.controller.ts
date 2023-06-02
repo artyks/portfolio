@@ -6,10 +6,7 @@ import {
   PUBLISH_PAGE_SLUG,
   UNPUBLISH_PAGE_SLUG,
   SET_PAGE_ELEMENT_VALUE_SLUG,
-  FIND_ONE_PAGE_DRAFT_SLUG,
-  FIND_MANY_PAGE_DRAFTS_SLUG,
-  FIND_ONE_PAGE_PUBLISHED_SLUG,
-  FIND_MANY_PAGES_PUBLISHED_SLUG,
+  FIND_ONE_PAGE_SLUG,
 } from './constants';
 
 @Controller(ENDPOINT_PAGES_SLUG)
@@ -39,23 +36,13 @@ export class PagesController {
     return;
   }
 
-  @Get(FIND_ONE_PAGE_DRAFT_SLUG)
+  @Get(FIND_ONE_PAGE_SLUG)
   findOneDraft() {
     return;
   }
 
-  @Get(FIND_MANY_PAGE_DRAFTS_SLUG)
-  findManyDrafts() {
-    return;
-  }
-
-  @Get(FIND_ONE_PAGE_PUBLISHED_SLUG)
-  findOnePublished() {
-    return;
-  }
-
-  @Get(FIND_MANY_PAGES_PUBLISHED_SLUG)
-  findManyPublished() {
+  @Get()
+  findMany() {
     return;
   }
 }
