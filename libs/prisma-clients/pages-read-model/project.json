@@ -1,0 +1,23 @@
+{
+  "name": "pages-read-model",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/prisma-clients/pages-read-model/src",
+  "projectType": "library",
+  "targets": {
+    "db-push": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "prisma db push --schema src/lib/prisma/schema.prisma",
+        "cwd": "libs/prisma-clients/pages-read-model"
+      }
+    },
+    "generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "prisma generate --schema src/lib/prisma/schema.prisma",
+        "cwd": "libs/prisma-clients/pages-read-model"
+      }
+    }
+  },
+  "tags": []
+}

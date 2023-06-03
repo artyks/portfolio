@@ -1,0 +1,58 @@
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../prisma-generated"
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("BE_TEMPLATES_PAGES_WRITE_MODEL_DB_URL")
+}
+
+model Template {
+  id        String            @id @default(uuid())
+  name      String
+  codename  String
+  elements  TemplateElement[]
+  pages     Page[]
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+}
+
+model TemplateElement {
+  id            String           @id @default(uuid())
+  name          String
+  codename      String
+  type          String
+  pageElement   PageElement[]
+  template      Template         @relation(fields: [templateId], references: [id])
+  templateId    String
+  prevElement   TemplateElement? @relation("ElementsOrder", fields: [prevElementId], references: [id])
+  prevElementId String?          @unique
+  nextElement   TemplateElement? @relation("ElementsOrder")
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+}
+
+model Page {
+  id         String        @id @default(uuid())
+  workflow   String
+  name       String
+  codename   String
+  template   Template      @relation(fields: [templateId], references: [id])
+  templateId String
+  elements   PageElement[]
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+}
+
+model PageElement {
+  id                String          @id @default(uuid())
+  templateElement   TemplateElement @relation(fields: [templateElementId], references: [id])
+  templateElementId String
+  value             String
+  page              Page            @relation(fields: [pageId], references: [id])
+  pageId            String
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+}

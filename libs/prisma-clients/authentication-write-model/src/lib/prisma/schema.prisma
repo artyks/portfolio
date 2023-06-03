@@ -1,0 +1,20 @@
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../prisma-generated"
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("BE_AUTHENTICATION_WRITE_MODEL_DB_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  firstName String
+  lastName  String
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

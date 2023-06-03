@@ -1,0 +1,23 @@
+{
+  "name": "authentication-write-model",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/prisma-clients/authentication-write-model/src",
+  "projectType": "library",
+  "targets": {
+    "db-push": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "prisma db push --schema src/lib/prisma/schema.prisma --force-reset",
+        "cwd": "libs/prisma-clients/authentication-write-model"
+      }
+    },
+    "generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "prisma generate --schema src/lib/prisma/schema.prisma",
+        "cwd": "libs/prisma-clients/authentication-write-model"
+      }
+    }
+  },
+  "tags": []
+}
