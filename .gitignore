@@ -41,6 +41,7 @@ Thumbs.db
 
 # db
 *.db
+prisma-generated
 
 #other
 *.playground.ts
