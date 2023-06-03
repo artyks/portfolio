@@ -1,1 +1,1 @@
-export * from './lib/get-pages-transport.utility';
+export * from './lib/microservice-connection.utility';
