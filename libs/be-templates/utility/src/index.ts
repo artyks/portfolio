@@ -1,1 +1,1 @@
-export * from './lib/get-templates-transport.utility';
+export * from './lib/microservice-connection.utility';

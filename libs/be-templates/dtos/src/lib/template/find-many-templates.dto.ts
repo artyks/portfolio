@@ -1,0 +1,3 @@
+class FindManyTemplatesDto {}
+
+export { FindManyTemplatesDto };
