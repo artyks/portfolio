@@ -1,4 +1,4 @@
-import { IsEnum, IsOptional, IsString, IsUUID, ValidateNested } from 'class-validator';
+import { IsEnum, IsOptional, IsString, ValidateNested } from 'class-validator';
 
 import { CommonPaginationDto } from '@common/dtos';
 import { CommonSortingOrderEnum } from '@common/constants';
@@ -15,13 +15,6 @@ class FindManyAssetsSortingDto {
 }
 
 class FindManyAssetsDto {
-  /**
-   * Consider null as a root directory or parent folder absence
-   */
-  @IsOptional()
-  @IsUUID()
-  folderId?: string | null;
-
   @IsOptional()
   @ValidateNested()
   pagination?: CommonPaginationDto;

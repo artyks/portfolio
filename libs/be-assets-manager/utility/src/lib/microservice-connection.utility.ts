@@ -1,4 +1,6 @@
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { ClientProvider, ClientProviderOptions, MicroserviceOptions, Transport } from '@nestjs/microservices';
+
+const ASSETS_MANAGER_CLIENT_NAME = 'ASSETS_MANAGER_CLIENT_NAME';
 
 const getAssetsManagerTransport = () => {
   if (!process.env.BE_ASSETS_MANAGER_HOST) {
@@ -17,4 +19,11 @@ const getAssetsManagerTransport = () => {
   return transportOptions;
 };
 
-export { getAssetsManagerTransport };
+const getAssetsManagerClient = (): ClientProviderOptions => {
+  return {
+    name: ASSETS_MANAGER_CLIENT_NAME,
+    ...(getAssetsManagerTransport() as ClientProvider),
+  };
+};
+
+export { getAssetsManagerTransport, getAssetsManagerClient, ASSETS_MANAGER_CLIENT_NAME };

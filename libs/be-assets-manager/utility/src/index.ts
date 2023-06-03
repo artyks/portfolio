@@ -1,1 +1,1 @@
-export * from './lib/get-assets-manager-transport.utility';
+export * from './lib/microservice-connection.utility';
