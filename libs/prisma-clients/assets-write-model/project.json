@@ -7,7 +7,7 @@
     "db-push": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "prisma db push --schema src/lib/prisma/schema.prisma --force-reset",
+        "command": "prisma db push --schema src/lib/prisma/schema.prisma",
         "cwd": "libs/prisma-clients/assets-write-model"
       }
     },
