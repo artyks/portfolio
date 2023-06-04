@@ -4,6 +4,16 @@
   "sourceRoot": "libs/be-pages/dtos/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/be-pages/dtos",
+        "main": "libs/be-pages/dtos/src/index.ts",
+        "tsConfig": "libs/be-pages/dtos/tsconfig.lib.json",
+        "assets": ["libs/be-pages/dtos/*.md"]
+      }
+    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],

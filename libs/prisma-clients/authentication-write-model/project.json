@@ -17,6 +17,23 @@
         "command": "prisma generate --schema src/lib/prisma/schema.prisma",
         "cwd": "libs/prisma-clients/authentication-write-model"
       }
+    },
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/prisma-clients/authentication-write-model",
+        "main": "libs/prisma-clients/authentication-write-model/src/index.ts",
+        "tsConfig": "libs/prisma-clients/authentication-write-model/tsconfig.lib.json",
+        "assets": ["libs/prisma-clients/authentication-write-model/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/prisma-clients/authentication-write-model/**/*.ts"]
+      }
     }
   },
   "tags": []

@@ -1,1 +1,1 @@
-export * from './lib/pages-read-model';
+export * from './lib';

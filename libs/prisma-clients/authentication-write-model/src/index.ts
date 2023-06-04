@@ -1,1 +1,1 @@
-export * from './lib/authentication-write-model';
+export * from './lib';

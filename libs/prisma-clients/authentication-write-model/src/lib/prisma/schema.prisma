@@ -1,6 +1,6 @@
 generator client {
   provider      = "prisma-client-js"
-  output        = "../prisma-generated"
+  output        = "../../../../../../node_modules/@prisma/authentication-write-client"
   binaryTargets = ["native", "rhel-openssl-1.0.x"]
 }
 

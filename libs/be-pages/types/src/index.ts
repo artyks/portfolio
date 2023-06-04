@@ -1,1 +1,1 @@
-export * from './lib/be-pages-types';
+export * from './lib';

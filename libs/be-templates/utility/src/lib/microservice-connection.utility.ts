@@ -1,4 +1,4 @@
-import { ClientProvider, ClientProviderOptions, TcpOptions, Transport } from '@nestjs/microservices';
+import { ClientProvider, ClientProviderOptions, Transport } from '@nestjs/microservices';
 
 const TEMPLATES_CLIENT_NAME = 'TEMPLATES_CLIENT_NAME';
 
@@ -9,7 +9,7 @@ const getTemplatesTransport = () => {
   if (!process.env.BE_TEMPLATES_PORT) {
     throw new Error("Provide 'BE_TEMPLATES_PORT' env variable");
   }
-  const transportOptions: TcpOptions = {
+  const transportOptions = {
     transport: Transport.TCP,
     options: {
       host: process.env.BE_TEMPLATES_HOST,

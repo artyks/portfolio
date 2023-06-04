@@ -14,7 +14,7 @@
         "outputPath": "dist/apps/be-api-gateway-delivery",
         "main": "apps/be-api-gateway-delivery/src/main.ts",
         "tsConfig": "apps/be-api-gateway-delivery/tsconfig.app.json",
-        "assets": ["apps/be-api-gateway-delivery/src/assets"],
+        "assets": [],
         "isolatedConfig": true,
         "webpackConfig": "apps/be-api-gateway-delivery/webpack.config.js"
       },

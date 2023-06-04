@@ -17,6 +17,23 @@
         "command": "prisma generate --schema src/lib/prisma/schema.prisma",
         "cwd": "libs/prisma-clients/pages-read-model"
       }
+    },
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/prisma-clients/pages-read-model",
+        "main": "libs/prisma-clients/pages-read-model/src/index.ts",
+        "tsConfig": "libs/prisma-clients/pages-read-model/tsconfig.lib.json",
+        "assets": ["libs/prisma-clients/pages-read-model/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/prisma-clients/pages-read-model/**/*.ts"]
+      }
     }
   },
   "tags": []

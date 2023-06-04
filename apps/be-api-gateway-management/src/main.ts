@@ -14,7 +14,7 @@ const bootstrap = async () => {
   /**
    * Retrieve config variables
    */
-  const configService: ConfigService<Config> = app.get(ConfigService);
+  const configService: ConfigService<Config, true> = app.get(ConfigService);
   const { HOST, PORT, GLOBAL_PREFIX } = configService.get('SERVER', { infer: true });
 
   /**

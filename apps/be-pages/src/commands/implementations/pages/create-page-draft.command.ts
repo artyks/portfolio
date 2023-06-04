@@ -1,8 +1,8 @@
-import { CreatePageDraftDto } from '@be-pages/dtos';
+import { CreatePageDto } from '@be-pages/dtos';
 import { ICommand } from '@nestjs/cqrs';
 
 class CreatePageDraftCommand implements ICommand {
-  constructor(public readonly payload: CreatePageDraftDto) {}
+  constructor(public readonly payload: CreatePageDto) {}
 }
 
 export { CreatePageDraftCommand };

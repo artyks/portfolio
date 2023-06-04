@@ -1,6 +1,6 @@
 generator client {
   provider      = "prisma-client-js"
-  output        = "../prisma-generated"
+  output        = "../../../../../../node_modules/@prisma/pages-read-client"
   binaryTargets = ["native", "rhel-openssl-1.0.x"]
 }
 
@@ -25,6 +25,7 @@ type Template {
 }
 
 type PageElement {
+  type     String
   codename String
   value    Json
 }

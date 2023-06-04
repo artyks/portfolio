@@ -5,7 +5,7 @@ import {
   PUBLISH_PAGE_EVENT,
   UNPUBLISH_PAGE_EVENT,
 } from '@be-pages/constants';
-import { ArchivePageDto, CreatePageDraftDto, PublishPageDto, UnpublishPageDto } from '@be-pages/dtos';
+import { ArchivePageDto, CreatePageDto, PublishPageDto, UnpublishPageDto } from '@be-pages/dtos';
 import { EventPattern, Payload } from '@nestjs/microservices';
 import { CommandBus } from '@nestjs/cqrs';
 import { CreatePageDraftCommand } from '../../commands/implementations/pages/create-page-draft.command';
@@ -18,7 +18,7 @@ class PagesCommandController {
   constructor(private readonly commandBus: CommandBus) {}
 
   @EventPattern(CREATE_PAGE_DRAFT_EVENT)
-  async handleCreateDraft(@Payload() payload: CreatePageDraftDto) {
+  async handleCreateDraft(@Payload() payload: CreatePageDto) {
     return this.commandBus.execute(new CreatePageDraftCommand(payload));
   }
 

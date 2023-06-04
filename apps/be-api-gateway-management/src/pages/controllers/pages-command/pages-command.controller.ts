@@ -6,7 +6,7 @@ import {
   PUBLISH_PAGE_SLUG,
   UNPUBLISH_PAGE_SLUG,
 } from '../../constants/pages.constants';
-import { ArchivePageDto, CreatePageDraftDto, PublishPageDto, UnpublishPageDto } from '@be-pages/dtos';
+import { ArchivePageDto, CreatePageDto, PublishPageDto, UnpublishPageDto } from '@be-pages/dtos';
 import { PAGES_CLIENT_NAME } from '@be-pages/utility';
 import { ClientProxy } from '@nestjs/microservices';
 import {
@@ -21,7 +21,7 @@ class PagesCommandController {
   constructor(@Inject(PAGES_CLIENT_NAME) private readonly pagesClient: ClientProxy) {}
 
   @Post(CREATE_PAGE_DRAFT_SLUG)
-  createDraft(@Body() payload: CreatePageDraftDto) {
+  createDraft(@Body() payload: CreatePageDto) {
     this.pagesClient.emit(CREATE_PAGE_DRAFT_EVENT, payload);
   }
 

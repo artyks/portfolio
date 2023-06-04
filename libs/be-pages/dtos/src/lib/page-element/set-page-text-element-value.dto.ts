@@ -1,12 +1,7 @@
-import { IsString, IsUUID } from 'class-validator';
+import { IsString } from 'class-validator';
+import { BaseSetPageElementValueDto } from './base-set-page-element-value.dto';
 
-class SetPageTextElementValueDto {
-  @IsUUID()
-  pageId: string;
-
-  @IsUUID()
-  elementId: string;
-
+class SetPageTextElementValueDto extends BaseSetPageElementValueDto {
   @IsString()
   value: string;
 }

@@ -1,1 +1,1 @@
-export * from './lib/templates-pages-write-model';
+export * from './lib';

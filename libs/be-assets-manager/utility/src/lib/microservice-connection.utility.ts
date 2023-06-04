@@ -1,4 +1,4 @@
-import { ClientProvider, ClientProviderOptions, MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { ClientProvider, ClientProviderOptions, Transport } from '@nestjs/microservices';
 
 const ASSETS_MANAGER_CLIENT_NAME = 'ASSETS_MANAGER_CLIENT_NAME';
 
@@ -9,7 +9,7 @@ const getAssetsManagerTransport = () => {
   if (!process.env.BE_ASSETS_MANAGER_PORT) {
     throw new Error("Provide 'BE_ASSETS_MANAGER_PORT' env variable");
   }
-  const transportOptions: MicroserviceOptions = {
+  const transportOptions = {
     transport: Transport.TCP,
     options: {
       host: process.env.BE_ASSETS_MANAGER_HOST,

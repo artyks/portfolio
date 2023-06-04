@@ -1,16 +1,11 @@
-import { ArrayNotEmpty, IsArray, IsString, IsUUID } from 'class-validator';
+import { IsArray, IsOptional, IsString } from 'class-validator';
+import { BaseSetPageElementValueDto } from './base-set-page-element-value.dto';
 
-class SetPageMultipleChoiceElementValueDto {
-  @IsUUID()
-  pageId: string;
-
-  @IsUUID()
-  elementId: string;
-
+class SetPageMultipleChoiceElementValueDto extends BaseSetPageElementValueDto {
+  @IsOptional()
   @IsArray()
-  @ArrayNotEmpty()
   @IsString({ each: true })
-  value: string[];
+  value?: string[] | null;
 }
 
 export { SetPageMultipleChoiceElementValueDto };

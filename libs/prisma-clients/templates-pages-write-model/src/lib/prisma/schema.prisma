@@ -1,6 +1,6 @@
 generator client {
   provider      = "prisma-client-js"
-  output        = "../prisma-generated"
+  output        = "../../../../../../node_modules/@prisma/templates-pages-write-client"
   binaryTargets = ["native", "rhel-openssl-1.0.x"]
 }
 
@@ -35,22 +35,24 @@ model TemplateElement {
 }
 
 model Page {
-  id         String        @id @default(uuid())
-  workflow   String
-  name       String
-  codename   String
-  template   Template      @relation(fields: [templateId], references: [id])
-  templateId String
-  elements   PageElement[]
-  createdAt  DateTime      @default(now())
-  updatedAt  DateTime      @updatedAt
+  id          String        @id @default(uuid())
+  isPublished Boolean
+  isArchived  Boolean
+  name        String
+  codename    String
+  template    Template      @relation(fields: [templateId], references: [id])
+  templateId  String
+  elements    PageElement[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
 }
 
 model PageElement {
   id                String          @id @default(uuid())
+  type              String
   templateElement   TemplateElement @relation(fields: [templateElementId], references: [id])
   templateElementId String
-  value             String
+  valueJsonString   String?
   page              Page            @relation(fields: [pageId], references: [id])
   pageId            String
   createdAt         DateTime        @default(now())

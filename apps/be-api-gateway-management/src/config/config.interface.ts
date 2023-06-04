@@ -5,7 +5,7 @@ type ConfigServer = {
 };
 
 type Config = {
-  MODE: string;
+  MODE: 'development' | 'production';
   SERVER: ConfigServer;
 };
 

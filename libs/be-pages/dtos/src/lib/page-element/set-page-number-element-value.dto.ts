@@ -1,14 +1,10 @@
-import { IsNumber, IsUUID } from 'class-validator';
+import { IsNumber, IsOptional } from 'class-validator';
+import { BaseSetPageElementValueDto } from './base-set-page-element-value.dto';
 
-class SetPageNumberElementValueDto {
-  @IsUUID()
-  pageId: string;
-
-  @IsUUID()
-  elementId: string;
-
+class SetPageNumberElementValueDto extends BaseSetPageElementValueDto {
+  @IsOptional()
   @IsNumber()
-  value: number;
+  value?: number | null;
 }
 
 export { SetPageNumberElementValueDto };

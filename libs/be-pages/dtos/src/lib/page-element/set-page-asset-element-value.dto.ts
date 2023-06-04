@@ -1,17 +1,13 @@
-import { IsUUID } from 'class-validator';
+import { IsOptional, ValidateNested } from 'class-validator';
+import { CreatePageAssetElementValueDto } from './create-page-asset-element.dto';
+import { BaseSetPageElementValueDto } from './base-set-page-element-value.dto';
 
-class SetPageAssetElementValueDto {
-  @IsUUID()
-  pageId: string;
+class SetPageAssetElementValueValueDto extends CreatePageAssetElementValueDto {}
 
-  @IsUUID()
-  elementId: string;
-
-  /**
-   * AssetId
-   */
-  @IsUUID()
-  value: string;
+class SetPageAssetElementValueDto extends BaseSetPageElementValueDto {
+  @IsOptional()
+  @ValidateNested()
+  value?: SetPageAssetElementValueValueDto | null;
 }
 
 export { SetPageAssetElementValueDto };

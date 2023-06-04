@@ -1,1 +1,1 @@
-export * from './lib/assets-write-model';
+export * from './lib';

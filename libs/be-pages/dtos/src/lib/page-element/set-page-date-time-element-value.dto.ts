@@ -1,14 +1,10 @@
-import { IsDateString, IsUUID } from 'class-validator';
+import { IsDateString, IsOptional } from 'class-validator';
+import { BaseSetPageElementValueDto } from './base-set-page-element-value.dto';
 
-class SetPageDateTimeElementValueDto {
-  @IsUUID()
-  pageId: string;
-
-  @IsUUID()
-  elementId: string;
-
+class SetPageDateTimeElementValueDto extends BaseSetPageElementValueDto {
+  @IsOptional()
   @IsDateString()
-  value: string;
+  value?: string | null;
 }
 
 export { SetPageDateTimeElementValueDto };
