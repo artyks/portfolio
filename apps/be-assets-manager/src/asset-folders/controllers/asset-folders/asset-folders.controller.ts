@@ -6,6 +6,7 @@ import {
 import { Controller } from '@nestjs/common';
 import { EventPattern, MessagePattern } from '@nestjs/microservices';
 
+// TODO: add asset folders
 @Controller()
 class AssetFoldersController {
   @EventPattern(CREATE_ASSET_FOLDER_EVENT)
