@@ -1,0 +1,26 @@
+{
+  "name": "be-templates-types",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/be-templates/types/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/be-templates/types",
+        "main": "libs/be-templates/types/src/index.ts",
+        "tsConfig": "libs/be-templates/types/tsconfig.lib.json",
+        "assets": ["libs/be-templates/types/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/be-templates/types/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

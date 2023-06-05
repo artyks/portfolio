@@ -10,13 +10,15 @@ datasource db {
 }
 
 model Template {
-  id        String            @id @default(uuid())
-  name      String
-  codename  String
-  elements  TemplateElement[]
-  pages     Page[]
-  createdAt DateTime          @default(now())
-  updatedAt DateTime          @updatedAt
+  id          String            @id @default(uuid())
+  name        String
+  codename    String
+  isPublished Boolean
+  isArchived  Boolean
+  elements    TemplateElement[]
+  pages       Page[]
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
 }
 
 model TemplateElement {

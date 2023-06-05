@@ -6,4 +6,6 @@ enum TemplateElementType {
   ASSET = 'ASSET',
 }
 
-export { TemplateElementType };
+const DEFAULT_TEMPLATE_ELEMENT_NAME = 'unnamed';
+
+export { TemplateElementType, DEFAULT_TEMPLATE_ELEMENT_NAME };

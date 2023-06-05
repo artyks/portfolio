@@ -3,6 +3,7 @@ import { BadRequestException } from '@nestjs/common';
 import { AggregateRoot } from '@nestjs/cqrs';
 import { Page, Prisma } from '@prisma-clients/templates-pages-write-model';
 import { PageElementModel } from './page-element.model';
+import { generateCodename } from '@common/utility';
 
 type PageUpdate = { where: { id: string }; data: Prisma.PageUpdateInput };
 
@@ -77,20 +78,18 @@ class PageModel<PayloadT extends CreatePageDto | Page> extends AggregateRoot {
   }
 
   private initPage(payload: PayloadT) {
+    this.name = payload.name;
+    this.templateId = payload.templateId;
     if (payload instanceof CreatePageDto) {
       /* Handle create dto */
-      this.name = payload.name;
-      this.codename = payload.codename;
-      this.templateId = payload.templateId;
+      this.codename = generateCodename(payload.name);
       this.elementsCreateDtos = payload.elements;
     } else {
       /* Handle page retrieved from database */
       this.id = payload.id;
       this.isArchived = payload.isArchived;
       this.isPublished = payload.isPublished;
-      this.name = payload.name;
       this.codename = payload.codename;
-      this.templateId = payload.templateId;
     }
   }
 

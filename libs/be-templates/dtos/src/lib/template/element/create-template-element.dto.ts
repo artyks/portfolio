@@ -5,10 +5,6 @@ class CreateTemplateElementDto {
   @IsUUID()
   id: string;
 
-  @IsString()
-  @IsNotEmpty()
-  codename: string;
-
   @IsOptional()
   @IsString()
   @IsNotEmpty()

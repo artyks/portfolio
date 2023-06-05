@@ -23,10 +23,6 @@ class CreatePageDto {
   @IsNotEmpty()
   name: string;
 
-  @IsString()
-  @IsNotEmpty()
-  codename: string;
-
   @IsUUID()
   templateId: string;
 

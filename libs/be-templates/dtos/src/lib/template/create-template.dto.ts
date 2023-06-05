@@ -4,10 +4,6 @@ import { CreateTemplateElementDto } from './element/create-template-element.dto'
 class CreateTemplateDto {
   @IsString()
   @IsNotEmpty()
-  codename: string;
-
-  @IsString()
-  @IsNotEmpty()
   name: string;
 
   @ValidateNested()
