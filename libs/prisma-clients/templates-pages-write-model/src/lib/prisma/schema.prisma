@@ -1,6 +1,6 @@
 generator client {
   provider      = "prisma-client-js"
-  output        = "../../../../../../node_modules/@prisma/templates-pages-write-client"
+  output        = "../../../../../../node_modules/.prisma/templates-pages-write-client"
   binaryTargets = ["native", "rhel-openssl-1.0.x"]
 }
 

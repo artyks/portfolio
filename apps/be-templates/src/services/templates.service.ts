@@ -169,4 +169,3 @@ class TemplatesService {
 }
 
 export { TemplatesService };
-export type { CreateTemplateInput, ReplaceTemplateInput };

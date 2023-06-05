@@ -1,6 +1,6 @@
 generator client {
   provider      = "prisma-client-js"
-  output        = "../../../../../../node_modules/@prisma/assets-write-client"
+  output        = "../../../../../../node_modules/.prisma/assets-write-client"
   binaryTargets = ["native", "rhel-openssl-1.0.x"]
 }
 
@@ -13,8 +13,9 @@ model Asset {
   id          String   @id @default(uuid())
   fileName    String
   size        Int
-  type        String
+  mimetype    String
   url         String
+  isArchived  Boolean
   imageWidth  Int?
   imageHeight Int?
   createdAt   DateTime @default(now())

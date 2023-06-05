@@ -1,10 +1,10 @@
 import { BadRequestException } from '@nestjs/common';
 import { Prisma, Template } from '@prisma-clients/templates-pages-write-model';
 import { CreateTemplateDto, CreateTemplateElementDto } from '@be-templates/dtos';
-import { CreateTemplateInput, ReplaceTemplateInput } from '../services/templates.service';
 import { generateCodename } from '@common/utility';
 import { DEFAULT_TEMPLATE_ELEMENT_NAME } from '@be-templates/constants';
 import { AggregateRoot } from '@nestjs/cqrs';
+import { CreateTemplateInput, ReplaceTemplateInput } from '@be-templates/types';
 
 type TemplateUpdate = { where: { id: string }; data: Prisma.TemplateUpdateInput };
 

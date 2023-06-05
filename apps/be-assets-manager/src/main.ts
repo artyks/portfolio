@@ -4,12 +4,14 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { getAssetsManagerTransport } from '@be-assets-manager/utility';
 
+// TODO: move it to env
+const HTTP_PORT = 3001;
+
 const bootstrap = async () => {
+  const app = await NestFactory.create(AppModule);
   const assetsManagerTransport = getAssetsManagerTransport();
-  const {
-    options: { host, port },
-  } = assetsManagerTransport;
-  const app = await NestFactory.createMicroservice(AppModule, assetsManagerTransport);
+
+  app.connectMicroservice(assetsManagerTransport, { inheritAppConfig: true });
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -18,8 +20,16 @@ const bootstrap = async () => {
       },
     }),
   );
-  await app.listen();
-  Logger.log(`🚀 Assets Manager Service is listening on: ${host}:${port}.`);
+
+  await app.startAllMicroservices();
+  await app.listen(HTTP_PORT);
+
+  const {
+    options: { host, port: TCP_PORT },
+  } = assetsManagerTransport;
+
+  Logger.log(`🚀 Assets Manager TCP Service is listening on: ${host}:${TCP_PORT}.`);
+  Logger.log(`🚀 Assets Manager HTTP Service is listening on: ${host}:${HTTP_PORT}.`);
 };
 
 bootstrap();

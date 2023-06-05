@@ -6,14 +6,14 @@ const getAssetsManagerTransport = () => {
   if (!process.env.BE_ASSETS_MANAGER_HOST) {
     throw new Error("Provide 'BE_ASSETS_MANAGER_HOST' env variable");
   }
-  if (!process.env.BE_ASSETS_MANAGER_PORT) {
-    throw new Error("Provide 'BE_ASSETS_MANAGER_PORT' env variable");
+  if (!process.env.BE_ASSETS_MANAGER_TCP_PORT) {
+    throw new Error("Provide 'BE_ASSETS_MANAGER_TCP_PORT' env variable");
   }
   const transportOptions = {
     transport: Transport.TCP,
     options: {
       host: process.env.BE_ASSETS_MANAGER_HOST,
-      port: parseInt(process.env.BE_ASSETS_MANAGER_PORT),
+      port: parseInt(process.env.BE_ASSETS_MANAGER_TCP_PORT),
     },
   };
   return transportOptions;

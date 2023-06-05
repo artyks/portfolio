@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/templates-pages-write-client';
+import { Prisma } from '@prisma-clients/templates-pages-write-model';
 
 type CreateManyTemplateElementInput = Omit<
   Prisma.TemplateElementCreateInput,
