@@ -18,7 +18,7 @@ import {
 import { ARCHIVE_ASSET_SLUG, ENDPOINT_ASSETS_SLUG, UPLOAD_ASSET_SLUG } from './assets-manager.constants';
 import { ArchiveAssetDto, FindManyAssetsDto, UploadAssetDto } from '@be-assets-manager/dtos';
 import { ClientProxy } from '@nestjs/microservices';
-import { ASSETS_MANAGER_CLIENT_NAME, getAssetsManagerHTTPConnectionURLString } from '@be-assets-manager/utility';
+import { ASSETS_MANAGER_CLIENT_NAME, getAssetsManagerHttpUrl } from '@be-assets-manager/utility';
 import {
   ARCHIVE_ASSET_EVENT,
   FIND_MANY_ASSETS_MESSAGE,
@@ -79,6 +79,7 @@ class AssetsManagerController {
     if ('fileValidationError' in req && req.fileValidationError === FileValidationErrors.UNSUPPORTED_FILE_TYPE) {
       throw new BadRequestException(`Cannot retrieve file extension: unknown file mimetype: '${file.mimetype}'`);
     }
+
     const formData = new FormData();
     formData.append(UPLOAD_ASSET_DTO_FILE_KEY, file.buffer, { filename: file.originalname });
     Object.entries(payload).forEach(([key, value]) => {
@@ -87,14 +88,15 @@ class AssetsManagerController {
       }
       formData.append(key, value);
     });
-    return await firstValueFrom(
-      this.httpService.post(getAssetsManagerHTTPConnectionURLString(), formData, {
-        headers: {
-          ...formData.getHeaders(),
-          'Content-Length': formData.getLengthSync(),
-        },
-      }),
-    );
+
+    const headers = {
+      ...formData.getHeaders(),
+      'Content-Length': formData.getLengthSync(),
+    };
+
+    const assetUpload$ = this.httpService.post(getAssetsManagerHttpUrl(), formData, { headers });
+    const res = await firstValueFrom(assetUpload$);
+    return res.data;
   }
 
   @Post(ARCHIVE_ASSET_SLUG)

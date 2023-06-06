@@ -19,6 +19,7 @@ import { EventPattern, MessagePattern, Payload } from '@nestjs/microservices';
 import { UploadAssetCommand } from '../../commands/implementations/upload-asset.command';
 import { ArchiveAssetCommand } from '../../commands/implementations/archive-asset.command';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { logError } from '@common/utility';
 
 const uploadAssetParseFilePipe = new ParseFilePipe({
   validators: [new MaxFileSizeValidator({ maxSize: MAX_UPLOADED_FILE_SIZE_IN_BYTES })],
@@ -34,12 +35,12 @@ class AssetsController {
     @Body() payload: Omit<UploadAssetDto, typeof UPLOAD_ASSET_DTO_FILE_KEY>,
     @UploadedFile(uploadAssetParseFilePipe) file: Express.Multer.File,
   ) {
-    return this.commandBus.execute(new UploadAssetCommand({ ...payload, file }));
+    this.commandBus.execute(new UploadAssetCommand({ ...payload, file })).catch(logError);
   }
 
   @EventPattern(ARCHIVE_ASSET_EVENT)
   async handleAssetArchive(@Payload() payload: ArchiveAssetDto) {
-    return this.commandBus.execute(new ArchiveAssetCommand(payload));
+    this.commandBus.execute(new ArchiveAssetCommand(payload)).catch(logError);
   }
 
   @MessagePattern(FIND_MANY_ASSETS_MESSAGE)

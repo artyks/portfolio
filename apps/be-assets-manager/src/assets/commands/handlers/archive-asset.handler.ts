@@ -14,7 +14,8 @@ class ArchiveAssetHandler implements ICommandHandler<ArchiveAssetCommand> {
   async execute({ payload: { id } }: ArchiveAssetCommand) {
     const assetCurrent = await this.assetRepository.findUniqueOrThrow({ where: { id } });
     const AssetModel = this.publisher.mergeClassContext(Asset);
-    const assetModel = new AssetModel(assetCurrent);
+    const assetModel = new AssetModel();
+    assetModel.initPersistedAsset(assetCurrent);
     assetModel.archiveAsset();
     await this.assetRepository.update(assetModel.getAssetUpdate());
     assetModel.commit();

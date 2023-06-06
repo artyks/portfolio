@@ -1,0 +1,26 @@
+{
+  "name": "be-image-processing-types",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/be-image-processing/types/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/be-image-processing/types",
+        "main": "libs/be-image-processing/types/src/index.ts",
+        "tsConfig": "libs/be-image-processing/types/tsconfig.lib.json",
+        "assets": ["libs/be-image-processing/types/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/be-image-processing/types/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

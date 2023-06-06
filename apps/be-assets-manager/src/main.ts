@@ -3,15 +3,19 @@ import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
 import { getAssetsManagerTransport } from '@be-assets-manager/utility';
-
-// TODO: move it to env
-const HTTP_PORT = 3001;
+import { ConfigService } from '@nestjs/config';
+import { AssetsManagerConfig } from './config/config.type';
+import { LogRpcExceptionsFilter } from '@common/exception-filtres';
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);
   const assetsManagerTransport = getAssetsManagerTransport();
 
   app.connectMicroservice(assetsManagerTransport, { inheritAppConfig: true });
+
+  /**
+   * Apply global pipes and filters
+   */
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -20,7 +24,17 @@ const bootstrap = async () => {
       },
     }),
   );
+  app.useGlobalFilters(new LogRpcExceptionsFilter());
 
+  /**
+   * Retrieve config variables
+   */
+  const configService: ConfigService<AssetsManagerConfig, true> = app.get(ConfigService);
+  const HTTP_PORT = configService.get('HTTP_PORT', { infer: true });
+
+  /**
+   * Start microservices
+   */
   await app.startAllMicroservices();
   await app.listen(HTTP_PORT);
 

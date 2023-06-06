@@ -2,20 +2,35 @@ import { Module } from '@nestjs/common';
 import { AssetsController } from './controllers/assets/assets.controller';
 import { CqrsModule } from '@nestjs/cqrs';
 import { AssetsWriteModule } from '@prisma-clients/assets-write-model';
-import { ConfigModule } from '@nestjs/config';
-import { loadAssetsManagerConfig } from './config/config';
-import { StorageService } from './services/storage.service';
 import { CommandHandlers } from './commands/handlers';
+import { StorageModule, StorageService } from '@storage';
+import { BullModule } from '@nestjs/bull';
+import { QueueConfig, loadQueueConfig } from '@be-queue';
+import { IMAGE_PROCESSING_QUEUE_NAME } from '@be-image-processing/constants';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      load: [loadAssetsManagerConfig],
+    BullModule.registerQueue({
+      name: IMAGE_PROCESSING_QUEUE_NAME,
     }),
+    BullModule.forRootAsync({
+      imports: [ConfigModule.forFeature(loadQueueConfig)],
+      useFactory: async (configService: ConfigService<QueueConfig, true>) => ({
+        redis: {
+          host: configService.get('QUEUE_HOST', { infer: true }),
+          port: configService.get('QUEUE_PORT', { infer: true }),
+        },
+      }),
+      inject: [ConfigService],
+    }),
+    StorageModule,
     CqrsModule,
     AssetsWriteModule,
   ],
   controllers: [AssetsController],
   providers: [StorageService, ...CommandHandlers],
 })
-export class AssetsModule {}
+class AssetsModule {}
+
+export { AssetsModule };

@@ -1,0 +1,26 @@
+{
+  "name": "be-image-processing-constants",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/be-image-processing/constants/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/be-image-processing/constants",
+        "main": "libs/be-image-processing/constants/src/index.ts",
+        "tsConfig": "libs/be-image-processing/constants/tsconfig.lib.json",
+        "assets": ["libs/be-image-processing/constants/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/be-image-processing/constants/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

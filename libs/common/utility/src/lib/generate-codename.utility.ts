@@ -1,3 +1,5 @@
+import * as crypto from 'crypto';
+
 /**
  * Replace all non-alphanumeric characters and whitespaces with underscores
  * Make codename unique by appending a random string

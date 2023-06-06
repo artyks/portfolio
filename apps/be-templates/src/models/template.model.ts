@@ -5,6 +5,7 @@ import { generateCodename } from '@common/utility';
 import { DEFAULT_TEMPLATE_ELEMENT_NAME } from '@be-templates/constants';
 import { AggregateRoot } from '@nestjs/cqrs';
 import { CreateTemplateInput, ReplaceTemplateInput } from '@be-templates/types';
+import crypto from 'crypto';
 
 type TemplateUpdate = { where: { id: string }; data: Prisma.TemplateUpdateInput };
 

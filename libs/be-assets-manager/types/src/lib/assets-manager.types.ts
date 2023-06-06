@@ -4,8 +4,26 @@ type AssetStorageUploadInput = {
   mimetype: string;
 };
 
-type AssetStorageUploadResult = {
+type AssetStorageDownloadTempInput = {
+  blobName: string;
+};
+
+type AssetStorageUploadPublicResult = {
   url: string;
 };
 
-export type { AssetStorageUploadInput, AssetStorageUploadResult };
+type AssetStorageUploadTempResult = {
+  blobName: string;
+};
+
+type AssetStorageDownloadTempResult = {
+  buffer: Buffer;
+};
+
+export type {
+  AssetStorageUploadInput,
+  AssetStorageUploadPublicResult,
+  AssetStorageUploadTempResult,
+  AssetStorageDownloadTempInput,
+  AssetStorageDownloadTempResult,
+};
