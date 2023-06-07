@@ -1,13 +1,12 @@
 import { CreatePageDto, CreatePageElementDtoType } from '@be-pages/dtos';
 import { BadRequestException } from '@nestjs/common';
-import { AggregateRoot } from '@nestjs/cqrs';
 import { Page, Prisma } from '@prisma-clients/templates-pages-write-model';
 import { PageElementModel } from './page-element.model';
 import { generateCodename } from '@common/utility';
 
 type PageUpdate = { where: { id: string }; data: Prisma.PageUpdateInput };
 
-class PageModel<PayloadT extends CreatePageDto | Page> extends AggregateRoot {
+class PageModel<PayloadT extends CreatePageDto | Page> {
   private id?: string;
   private name: string;
   private codename: string;
@@ -17,32 +16,22 @@ class PageModel<PayloadT extends CreatePageDto | Page> extends AggregateRoot {
   private elementsCreateDtos?: CreatePageElementDtoType[];
 
   constructor(payload: PayloadT) {
-    super();
     this.initPage(payload);
   }
 
   publishPage() {
     this.validateIdOrThrow(this.id);
     this.isPublished = true;
-    // this.apply(
-    //   new PagePublished(),
-    // )
   }
 
   unpublishPage() {
     this.validateIdOrThrow(this.id);
     this.isPublished = false;
-    // this.apply(
-    //   new PageUnpublished(),
-    // )
   }
 
   archivePage() {
     this.validateIdOrThrow(this.id);
     this.isArchived = true;
-    // this.apply(
-    //   new PageArchived(),
-    // )
   }
 
   getPageCreateInput(): Prisma.PageCreateInput {

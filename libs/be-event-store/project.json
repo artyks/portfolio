@@ -4,6 +4,16 @@
   "sourceRoot": "libs/be-event-store/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/be-event-store",
+        "main": "libs/be-event-store/src/index.ts",
+        "tsConfig": "libs/be-event-store/tsconfig.lib.json",
+        "assets": ["libs/be-event-store/*.md"]
+      }
+    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],

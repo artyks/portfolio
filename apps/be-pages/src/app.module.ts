@@ -5,10 +5,12 @@ import { PagesDraftsQueryController } from './controllers/pages-drafts-query/pag
 import { CqrsModule } from '@nestjs/cqrs';
 import { TemplatesPagesWriteModule } from '@prisma-clients/templates-pages-write-model';
 import { CommandHandlers } from './commands/handlers';
+import { EventStoreModule } from '@be-event-store';
+import { EventHandlers } from './events/handlers';
 
 @Module({
-  imports: [CqrsModule, TemplatesPagesWriteModule],
+  imports: [CqrsModule, TemplatesPagesWriteModule, EventStoreModule],
   controllers: [PageElementsCommandController, PagesCommandController, PagesDraftsQueryController],
-  providers: [...CommandHandlers],
+  providers: [...CommandHandlers, ...EventHandlers],
 })
 export class AppModule {}
