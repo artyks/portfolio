@@ -8,6 +8,9 @@ import { BullModule } from '@nestjs/bull';
 import { QueueConfig, loadQueueConfig } from '@be-queue';
 import { IMAGE_PROCESSING_QUEUE_NAME } from '@be-image-processing/constants';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ClientsModule } from '@nestjs/microservices';
+import { getGlobalEventBusClient } from '@be-global-event-bus';
+import { EventHandlers } from './events/handlers';
 
 @Module({
   imports: [
@@ -27,9 +30,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     StorageModule,
     CqrsModule,
     AssetsWriteModule,
+    ClientsModule.register([getGlobalEventBusClient()]),
   ],
   controllers: [AssetsController],
-  providers: [StorageService, ...CommandHandlers],
+  providers: [StorageService, ...CommandHandlers, ...EventHandlers],
 })
 class AssetsModule {}
 
