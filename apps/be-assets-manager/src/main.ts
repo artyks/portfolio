@@ -4,7 +4,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { getAssetsManagerTransport } from '@be-assets-manager/utility';
 import { LogRpcExceptionsFilter } from '@common/exception-filtres';
-import { getGlobalEventBusTransport } from 'be-global-event-bus';
+import { getGlobalEventBusTransport } from '@be-global-event-bus';
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);

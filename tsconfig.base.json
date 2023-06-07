@@ -21,6 +21,7 @@
       "@be-assets-manager/types": ["libs/be-assets-manager/types/src/index.ts"],
       "@be-assets-manager/utility": ["libs/be-assets-manager/utility/src/index.ts"],
       "@be-event-store": ["libs/be-event-store/src/index.ts"],
+      "@be-global-event-bus": ["libs/be-global-event-bus/src/index.ts"],
       "@be-image-processing/constants": ["libs/be-image-processing/constants/src/index.ts"],
       "@be-image-processing/types": ["libs/be-image-processing/types/src/index.ts"],
       "@be-image-processing/utility": ["libs/be-image-processing/utility/src/index.ts"],
@@ -41,8 +42,7 @@
       "@prisma-clients/authentication-write-model": ["libs/prisma-clients/authentication-write-model/src/index.ts"],
       "@prisma-clients/pages-read-model": ["libs/prisma-clients/pages-read-model/src/index.ts"],
       "@prisma-clients/templates-pages-write-model": ["libs/prisma-clients/templates-pages-write-model/src/index.ts"],
-      "@storage": ["libs/storage/src/index.ts"],
-      "be-global-event-bus": ["libs/be-global-event-bus/src/index.ts"]
+      "@storage": ["libs/storage/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
