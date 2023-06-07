@@ -21,13 +21,13 @@ const bootstrap = async () => {
   app.connectMicroservice(evenBusTransport, { inheritAppConfig: true });
 
   /**
-   * Apply global pipes and filters
+   * Retrieve config envs
    */
   const configService: ConfigService<Config, true> = app.get(ConfigService);
   const { HOST, PORT, GLOBAL_PREFIX } = configService.get('SERVER', { infer: true });
 
   /**
-   * Configure app
+   * Apply global pipes and filter
    */
   app.useGlobalPipes(
     new ValidationPipe({
