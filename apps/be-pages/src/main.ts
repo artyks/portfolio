@@ -31,6 +31,11 @@ const bootstrap = async () => {
   app.useGlobalFilters(new LogRpcExceptionsFilter());
 
   /**
+   * Initialise NestJs lifecycle events
+   */
+  await app.init();
+
+  /**
    * Start microservices
    */
   await app.startAllMicroservices();

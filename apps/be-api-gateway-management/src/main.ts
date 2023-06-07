@@ -45,6 +45,11 @@ const bootstrap = async () => {
   } = evenBusTransport;
 
   /**
+   * Initialise NestJs lifecycle events
+   */
+  await app.init();
+
+  /**
    * Start connection with Redis transport (Event Bus)
    */
   await app.startAllMicroservices();
