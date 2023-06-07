@@ -4,6 +4,7 @@ import { EventPattern, MessagePattern, Payload } from '@nestjs/microservices';
 import {
   ArchiveTemplateDto,
   CreateTemplateDto,
+  FindManyTemplatesDto,
   FindOneTemplateDto,
   PublishTemplateDto,
   ReplaceTemplateDto,
@@ -16,15 +17,17 @@ import {
   FIND_ONE_TEMPLATE_MESSAGE,
   FIND_MANY_TEMPLATES_MESSAGE,
 } from '@be-templates/constants';
-import { CommandBus } from '@nestjs/cqrs';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateTemplateCommand } from '../commands/implementations/create-template.command';
 import { ArchiveTemplateCommand } from '../commands/implementations/archive-template.command';
 import { PublishTemplateCommand } from '../commands/implementations/publish-template.command';
 import { ReplaceTemplateCommand } from '../commands/implementations/replace-template.command';
+import { FindOneTemplateQuery } from '../queries/implementations/find-one-template.query';
+import { FindManyTemplatesQuery } from '../queries/implementations/find-many-templates.query';
 
 @Controller()
 export class TemplatesController {
-  constructor(private readonly commandBus: CommandBus) {}
+  constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
 
   @EventPattern(CREATE_TEMPLATE_EVENT)
   async handleTemplateCreate(@Payload() payload: CreateTemplateDto) {
@@ -48,11 +51,11 @@ export class TemplatesController {
 
   @MessagePattern(FIND_ONE_TEMPLATE_MESSAGE)
   findOne(@Payload() payload: FindOneTemplateDto) {
-    return;
+    return this.queryBus.execute(new FindOneTemplateQuery(payload));
   }
 
   @MessagePattern(FIND_MANY_TEMPLATES_MESSAGE)
-  findMany() {
-    return;
+  findMany(@Payload() payload: FindManyTemplatesDto) {
+    return this.queryBus.execute(new FindManyTemplatesQuery(payload));
   }
 }

@@ -24,7 +24,8 @@ class PagesDraftsQueryController {
 
   @Get()
   async findManyDrafts(@Query() payload: FindManyPageDraftsDto) {
-    return await firstValueFrom(this.pagesClient.send(FIND_MANY_PAGE_DRAFTS_MESSAGE, payload));
+    const findPageDraftsQuery$ = this.pagesClient.send(FIND_MANY_PAGE_DRAFTS_MESSAGE, payload);
+    return await firstValueFrom(findPageDraftsQuery$);
   }
 }
 

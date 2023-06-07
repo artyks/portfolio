@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Inject, NotFoundException, Param, Post, Query } from '@nestjs/common';
 import {
   ARCHIVE_TEMPLATE_SLUG,
   CREATE_TEMPLATE_SLUG,
@@ -7,7 +7,7 @@ import {
   PUBLISH_TEMPLATE_SLUG,
   REPLACE_TEMPLATE_SLUG,
 } from './templates.constants';
-
+import { FindManyTemplatesQueryResult, FindOneTemplateQueryResult } from '@be-templates/types';
 import {
   ArchiveTemplateDto,
   CreateTemplateDto,
@@ -54,11 +54,23 @@ export class TemplatesController {
 
   @Get(FIND_ONE_TEMPLATE_SLUG)
   async findOne(@Param() payload: FindOneTemplateDto) {
-    return await firstValueFrom(this.templatesClient.send(FIND_ONE_TEMPLATE_MESSAGE, payload));
+    const findTemplateQuery$ = this.templatesClient.send<FindOneTemplateQueryResult>(
+      FIND_ONE_TEMPLATE_MESSAGE,
+      payload,
+    );
+    const template = await firstValueFrom(findTemplateQuery$);
+    if (template === null) {
+      throw new NotFoundException();
+    }
+    return template;
   }
 
   @Get()
   async findMany(@Query() payload: FindManyTemplatesDto) {
-    return await firstValueFrom(this.templatesClient.send(FIND_MANY_TEMPLATES_MESSAGE, payload));
+    const findTemplatesQuery$ = this.templatesClient.send<FindManyTemplatesQueryResult>(
+      FIND_MANY_TEMPLATES_MESSAGE,
+      payload,
+    );
+    return await firstValueFrom(findTemplatesQuery$);
   }
 }
