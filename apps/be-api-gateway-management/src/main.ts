@@ -15,7 +15,7 @@ const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);
 
   /**
-   * Connect transports
+   * Connect to event bus
    */
   const evenBusTransport = getGlobalEventBusTransport();
   app.connectMicroservice(evenBusTransport, { inheritAppConfig: true });
@@ -27,7 +27,7 @@ const bootstrap = async () => {
   const { HOST, PORT, GLOBAL_PREFIX } = configService.get('SERVER', { infer: true });
 
   /**
-   * Apply global pipes and filter
+   * Apply global settings
    */
   app.useGlobalPipes(
     new ValidationPipe({
@@ -45,11 +45,16 @@ const bootstrap = async () => {
   } = evenBusTransport;
 
   /**
-   * Start server
+   * Start connection with Redis transport (Event Bus)
+   */
+  await app.startAllMicroservices();
+  Logger.log(`🚀 Management API Gateway subscribed to Redis Event Bus on: ${EVENT_BUS_HOST}:${EVENT_BUS_PORT}.`);
+
+  /**
+   * Start HTTP server
    */
   await app.listen(PORT, HOST);
   Logger.log(`🚀 Management API Gateway is running on: ${HOST}:${PORT}/${GLOBAL_PREFIX}`);
-  Logger.log(`🚀 Management API Gateway subscribed to Redis Event Bus on: ${EVENT_BUS_HOST}:${EVENT_BUS_PORT}.`);
 };
 
 bootstrap();
