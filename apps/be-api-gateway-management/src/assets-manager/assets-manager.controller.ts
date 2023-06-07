@@ -31,7 +31,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { StorageService } from '@storage';
 import crypto from 'crypto';
 import { UPLOAD_ASSET_DTO_FILE_KEY } from './constants/assets-manager.constants';
-import { UploadAssetDto as ExternalUploadAssetDto } from './dtos/upload-asset.dto';
+// import { UploadAssetDto as ExternalUploadAssetDto } from './dtos/upload-asset.dto';
 
 enum FileValidationErrors {
   UNSUPPORTED_FILE_TYPE = 'UNSUPPORTED_FILE_TYPE',
