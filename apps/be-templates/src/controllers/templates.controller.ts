@@ -50,12 +50,12 @@ export class TemplatesController {
   }
 
   @MessagePattern(FIND_ONE_TEMPLATE_MESSAGE)
-  findOne(@Payload() payload: FindOneTemplateDto) {
-    return this.queryBus.execute(new FindOneTemplateQuery(payload));
+  async findOne(@Payload() payload: FindOneTemplateDto) {
+    return await this.queryBus.execute(new FindOneTemplateQuery(payload));
   }
 
   @MessagePattern(FIND_MANY_TEMPLATES_MESSAGE)
-  findMany(@Payload() payload: FindManyTemplatesDto) {
-    return this.queryBus.execute(new FindManyTemplatesQuery(payload));
+  async findMany(@Payload() payload: FindManyTemplatesDto) {
+    return await this.queryBus.execute(new FindManyTemplatesQuery(payload));
   }
 }

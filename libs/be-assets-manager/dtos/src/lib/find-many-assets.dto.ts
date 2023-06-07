@@ -7,7 +7,7 @@ import { FindManyAssetsSortingByEnum } from '@be-assets-manager/constants';
 class FindManyAssetsSortingDto {
   @IsString()
   @IsEnum(FindManyAssetsSortingByEnum)
-  by: FindManyAssetsSortingByEnum;
+  by: (typeof FindManyAssetsSortingByEnum)[keyof FindManyAssetsSortingByEnum];
 
   @IsString()
   @IsEnum(CommonSortingOrderEnum)

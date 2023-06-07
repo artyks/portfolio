@@ -11,6 +11,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientsModule } from '@nestjs/microservices';
 import { getGlobalEventBusClient } from '@be-global-event-bus';
 import { EventHandlers } from './events/handlers';
+import { QueryHandlers } from './queries/handlers';
 
 @Module({
   imports: [
@@ -33,7 +34,7 @@ import { EventHandlers } from './events/handlers';
     ClientsModule.register([getGlobalEventBusClient()]),
   ],
   controllers: [AssetsController],
-  providers: [StorageService, ...CommandHandlers, ...EventHandlers],
+  providers: [StorageService, ...CommandHandlers, ...EventHandlers, ...QueryHandlers],
 })
 class AssetsModule {}
 

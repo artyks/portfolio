@@ -1,7 +1,7 @@
 import { CommonSortingByEnum } from '@common/constants';
 
 enum AssetsSpecificSortingBy {
-  NAME = 'name',
+  FILE_NAME = 'fileName',
 }
 
 /**
@@ -10,4 +10,4 @@ enum AssetsSpecificSortingBy {
 const FindManyAssetsSortingByEnum = { ...CommonSortingByEnum, ...AssetsSpecificSortingBy };
 type FindManyAssetsSortingByEnum = typeof FindManyAssetsSortingByEnum;
 
-export { FindManyAssetsSortingByEnum };
+export { FindManyAssetsSortingByEnum, AssetsSpecificSortingBy };

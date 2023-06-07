@@ -31,6 +31,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { StorageService } from '@storage';
 import crypto from 'crypto';
 import { UPLOAD_ASSET_DTO_FILE_KEY } from './constants/assets-manager.constants';
+import { FindManyAssetsQueryResult } from '@be-assets-manager/types';
 // import { UploadAssetDto as ExternalUploadAssetDto } from './dtos/upload-asset.dto';
 
 enum FileValidationErrors {
@@ -109,7 +110,11 @@ class AssetsManagerController {
 
   @Get()
   async findMany(@Query() payload: FindManyAssetsDto) {
-    return await firstValueFrom(this.assetsManagerClient.send(FIND_MANY_ASSETS_MESSAGE, payload));
+    const findAssetsQuery$ = this.assetsManagerClient.send<FindManyAssetsQueryResult>(
+      FIND_MANY_ASSETS_MESSAGE,
+      payload,
+    );
+    return await firstValueFrom(findAssetsQuery$);
   }
 }
 
