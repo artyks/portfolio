@@ -9,6 +9,7 @@ import { EventStoreModule } from '@be-event-store';
 import { EventHandlers } from './events/handlers';
 import { ClientsModule } from '@nestjs/microservices';
 import { getGlobalEventBusClient } from '@be-global-event-bus';
+import { QueryHandlers } from './queries/handlers';
 
 @Module({
   imports: [
@@ -18,6 +19,8 @@ import { getGlobalEventBusClient } from '@be-global-event-bus';
     ClientsModule.register([getGlobalEventBusClient()]),
   ],
   controllers: [PageElementsCommandController, PagesCommandController, PagesDraftsQueryController],
-  providers: [...CommandHandlers, ...EventHandlers],
+  providers: [...CommandHandlers, ...EventHandlers, ...QueryHandlers],
 })
-export class AppModule {}
+class AppModule {}
+
+export { AppModule };
