@@ -7,9 +7,16 @@ import { TemplatesPagesWriteModule } from '@prisma-clients/templates-pages-write
 import { CommandHandlers } from './commands/handlers';
 import { EventStoreModule } from '@be-event-store';
 import { EventHandlers } from './events/handlers';
+import { ClientsModule } from '@nestjs/microservices';
+import { getGlobalEventBusClient } from '@be-global-event-bus';
 
 @Module({
-  imports: [CqrsModule, TemplatesPagesWriteModule, EventStoreModule],
+  imports: [
+    CqrsModule,
+    TemplatesPagesWriteModule,
+    EventStoreModule,
+    ClientsModule.register([getGlobalEventBusClient()]),
+  ],
   controllers: [PageElementsCommandController, PagesCommandController, PagesDraftsQueryController],
   providers: [...CommandHandlers, ...EventHandlers],
 })
