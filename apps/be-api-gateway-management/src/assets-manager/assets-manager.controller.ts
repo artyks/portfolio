@@ -16,20 +16,22 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ARCHIVE_ASSET_SLUG, ENDPOINT_ASSETS_SLUG, UPLOAD_ASSET_SLUG } from './assets-manager.constants';
-import { ArchiveAssetDto, FindManyAssetsDto, UploadAssetDto } from '@be-assets-manager/dtos';
+import { ArchiveAssetDto, FindManyAssetsDto, UploadAssetDto as InternalUploadAssetDto } from '@be-assets-manager/dtos';
 import { ClientProxy } from '@nestjs/microservices';
-import { ASSETS_MANAGER_CLIENT_NAME, getAssetsManagerHttpUrl } from '@be-assets-manager/utility';
+import { ASSETS_MANAGER_CLIENT_NAME } from '@be-assets-manager/utility';
 import {
   ARCHIVE_ASSET_EVENT,
   FIND_MANY_ASSETS_MESSAGE,
   MAX_UPLOADED_FILE_SIZE_IN_BYTES,
-  UPLOAD_ASSET_DTO_FILE_KEY,
+  UPLOAD_ASSET_EVENT,
 } from '@be-assets-manager/constants';
 import { firstValueFrom } from 'rxjs';
 import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { HttpService } from '@nestjs/axios';
-import FormData from 'form-data';
+import { StorageService } from '@storage';
+import crypto from 'crypto';
+import { UPLOAD_ASSET_DTO_FILE_KEY } from './constants/assets-manager.constants';
+import { UploadAssetDto as ExternalUploadAssetDto } from './dtos/upload-asset.dto';
 
 enum FileValidationErrors {
   UNSUPPORTED_FILE_TYPE = 'UNSUPPORTED_FILE_TYPE',
@@ -66,37 +68,38 @@ const composeMulterOptions = (): MulterOptions => {
 class AssetsManagerController {
   constructor(
     @Inject(ASSETS_MANAGER_CLIENT_NAME) private readonly assetsManagerClient: ClientProxy,
-    private readonly httpService: HttpService,
+    private readonly storageService: StorageService,
   ) {}
 
   @Post(UPLOAD_ASSET_SLUG)
   @UseInterceptors(FileInterceptor(UPLOAD_ASSET_DTO_FILE_KEY, composeMulterOptions()))
   async upload(
     @UploadedFile(uploadAssetParseFilePipe) file: Express.Multer.File,
-    @Body() payload: Omit<UploadAssetDto, typeof UPLOAD_ASSET_DTO_FILE_KEY>,
+    // @Body() payload: Omit<ExternalUploadAssetDto, typeof UPLOAD_ASSET_DTO_FILE_KEY>,
     @Req() req: Request,
   ) {
     if ('fileValidationError' in req && req.fileValidationError === FileValidationErrors.UNSUPPORTED_FILE_TYPE) {
       throw new BadRequestException(`Cannot retrieve file extension: unknown file mimetype: '${file.mimetype}'`);
     }
 
-    const formData = new FormData();
-    formData.append(UPLOAD_ASSET_DTO_FILE_KEY, file.buffer, { filename: file.originalname });
-    Object.entries(payload).forEach(([key, value]) => {
-      if (key === UPLOAD_ASSET_DTO_FILE_KEY) {
-        return;
-      }
-      formData.append(key, value);
+    /**
+     * Upload asset to the internal storage bucket
+     */
+    const arrivedBlobName = `arrived/${crypto.randomUUID()}`;
+    const { blobName: arrivedBlobNamePersisted } = await this.storageService.uploadTemp({
+      blobName: arrivedBlobName,
+      buffer: file.buffer,
+      mimetype: file.mimetype,
     });
 
-    const headers = {
-      ...formData.getHeaders(),
-      'Content-Length': formData.getLengthSync(),
-    };
-
-    const assetUpload$ = this.httpService.post(getAssetsManagerHttpUrl(), formData, { headers });
-    const res = await firstValueFrom(assetUpload$);
-    return res.data;
+    /**
+     * Emit UploadAsset event to assets-manager microservice
+     */
+    this.assetsManagerClient.emit<unknown, InternalUploadAssetDto>(UPLOAD_ASSET_EVENT, {
+      mimetype: file.mimetype,
+      originalname: file.originalname,
+      privateBlobName: arrivedBlobNamePersisted,
+    });
   }
 
   @Post(ARCHIVE_ASSET_SLUG)

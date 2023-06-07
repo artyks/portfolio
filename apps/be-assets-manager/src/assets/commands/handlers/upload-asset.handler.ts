@@ -25,15 +25,18 @@ class UploadAssetHandler implements ICommandHandler<UploadAssetCommand> {
     /** Merge asset model with event publisher */
     const AssetModel = this.publisher.mergeClassContext(Asset);
 
+    /** Download asset buffer from internal bucket */
+    const { buffer: arrivedBuffer } = await this.storageService.downloadTemp({ blobName: payload.privateBlobName });
+
     /** Init asset */
     const assetModel = new AssetModel();
-    assetModel.initAssetFromUploadDto(payload);
+    assetModel.initAssetFromUploadDto(payload, arrivedBuffer);
 
     /** Handle image optimisation */
     if (assetModel.isImage()) {
       const uploadInput = assetModel.getUploadInput();
 
-      /** Upload image to temporary storage to allow queue processor retrieve it later */
+      /** Upload image to internal bucket to allow queue processor retrieve it later */
       await this.storageService.uploadTemp(uploadInput);
 
       /** Send asset to image optimisation queue */

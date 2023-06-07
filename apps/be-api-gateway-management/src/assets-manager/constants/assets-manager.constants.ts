@@ -1,0 +1,3 @@
+const UPLOAD_ASSET_DTO_FILE_KEY = 'file';
+
+export { UPLOAD_ASSET_DTO_FILE_KEY };

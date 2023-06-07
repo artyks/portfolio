@@ -23,28 +23,28 @@ class AssetModel extends AggregateRoot {
   private size?: number;
 
   private _isImage = false;
-  private _buffer?: Buffer;
+  private buffer?: Buffer;
 
   constructor() {
     super();
   }
 
-  initAssetFromUploadDto(payload: UploadAssetDto) {
-    const ext = mime.extension(payload.file.mimetype);
+  initAssetFromUploadDto(payload: UploadAssetDto, buffer: Buffer) {
+    const ext = mime.extension(payload.mimetype);
     if (!ext) {
       throw new RpcException('Cannot retrieve file extension');
     }
     if (this.isImageExtension(ext)) {
       this._isImage = true;
-      this.size = Buffer.byteLength(payload.file.buffer);
-      const { width, height } = sizeOf(payload.file.buffer);
+      const { width, height } = sizeOf(buffer);
       this.imageHeight = height || null;
       this.imageWidth = width || null;
     }
+    this.size = Buffer.byteLength(buffer);
     this.id = crypto.randomUUID();
-    this.mimetype = payload.file.mimetype;
-    this.fileName = payload.file.originalname;
-    this._buffer = payload.file.buffer;
+    this.mimetype = payload.mimetype;
+    this.fileName = payload.originalname;
+    this.buffer = buffer;
   }
 
   initPersistedAsset(payload: Asset) {
@@ -71,7 +71,7 @@ class AssetModel extends AggregateRoot {
   }
 
   setBuffer(buffer: Buffer) {
-    this._buffer = buffer;
+    this.buffer = buffer;
     this.size = Buffer.byteLength(buffer);
     const { width, height } = sizeOf(buffer);
     this.imageHeight = height || null;
@@ -79,12 +79,12 @@ class AssetModel extends AggregateRoot {
   }
 
   getUploadInput(): AssetStorageUploadInput {
-    if (!this._buffer) {
+    if (!this.buffer) {
       throw new RpcException('No buffer setted');
     }
     return {
       mimetype: this.mimetype,
-      buffer: this._buffer,
+      buffer: this.buffer,
       blobName: this.resolveBlobName(this.fileName),
     };
   }
