@@ -13,10 +13,10 @@ class ArchivePageHandler implements ICommandHandler<ArchivePageCommand> {
   }
 
   async execute({ payload: { id } }: ArchivePageCommand) {
-    // const pageCurrent = await this.pageRepository.findUniqueOrThrow({ where: { id } });
-    // const pageModel = new PageModel(pageCurrent);
-    // pageModel.archivePage();
-    // await this.pageRepository.update(pageModel.getPageUpdate());
+    const pageCurrent = await this.pageRepository.findUniqueOrThrow({ where: { id } });
+    const pageModel = new PageModel(pageCurrent);
+    pageModel.archivePage();
+    await this.pageRepository.update(pageModel.getPageUpdate());
     this.localEventBus.publish(new PageArchivedEvent({ id }));
   }
 }
