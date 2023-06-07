@@ -3,7 +3,8 @@ import { logError } from '@common/utility';
 import { Inject } from '@nestjs/common';
 import { GLOBAL_EVENT_BUS_CLIENT_NAME } from '@be-global-event-bus';
 import { ClientProxy } from '@nestjs/microservices';
-import { ASSET_UPLOADED_EVENT_GLOBAL, AssetUploadedEvent } from '../implementations/asset-uploaded.event';
+import { AssetUploadedEvent } from '../implementations/asset-uploaded.event';
+import { ASSET_UPLOADED_EVENT_GLOBAL } from '@be-assets-manager/constants';
 
 @EventsHandler(AssetUploadedEvent)
 class AssetUploadedHandler implements IEventHandler<AssetUploadedEvent> {

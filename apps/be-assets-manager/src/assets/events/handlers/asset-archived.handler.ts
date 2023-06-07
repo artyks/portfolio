@@ -3,7 +3,8 @@ import { logError } from '@common/utility';
 import { Inject } from '@nestjs/common';
 import { GLOBAL_EVENT_BUS_CLIENT_NAME } from '@be-global-event-bus';
 import { ClientProxy } from '@nestjs/microservices';
-import { ASSET_ARCHIVED_EVENT_GLOBAL, AssetArchivedEvent } from '../implementations/asset-archived.event';
+import { AssetArchivedEvent } from '../implementations/asset-archived.event';
+import { ASSET_ARCHIVED_EVENT_GLOBAL } from '@be-assets-manager/constants';
 
 @EventsHandler(AssetArchivedEvent)
 class AssetArchivedHandler implements IEventHandler<AssetArchivedEvent> {

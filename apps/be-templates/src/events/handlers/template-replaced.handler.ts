@@ -3,7 +3,8 @@ import { logError } from '@common/utility';
 import { Inject } from '@nestjs/common';
 import { GLOBAL_EVENT_BUS_CLIENT_NAME } from '@be-global-event-bus';
 import { ClientProxy } from '@nestjs/microservices';
-import { TEMPLATE_REPLACED_EVENT_GLOBAL, TemplateReplacedEvent } from '../implementations/template-replaced.event';
+import { TemplateReplacedEvent } from '../implementations/template-replaced.event';
+import { TEMPLATE_REPLACED_EVENT_GLOBAL } from '@be-templates/constants';
 
 @EventsHandler(TemplateReplacedEvent)
 class TemplateReplacedHandler implements IEventHandler<TemplateReplacedEvent> {

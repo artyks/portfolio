@@ -3,7 +3,8 @@ import { logError } from '@common/utility';
 import { Inject } from '@nestjs/common';
 import { GLOBAL_EVENT_BUS_CLIENT_NAME } from '@be-global-event-bus';
 import { ClientProxy } from '@nestjs/microservices';
-import { TEMPLATE_PUBLISHED_EVENT_GLOBAL, TemplatePublishedEvent } from '../implementations/template-published.event';
+import { TemplatePublishedEvent } from '../implementations/template-published.event';
+import { TEMPLATE_PUBLISHED_EVENT_GLOBAL } from '@be-templates/constants';
 
 @EventsHandler(TemplatePublishedEvent)
 class TemplatePublishedHandler implements IEventHandler<TemplatePublishedEvent> {
