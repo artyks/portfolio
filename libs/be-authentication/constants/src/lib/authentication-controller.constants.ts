@@ -1,0 +1,14 @@
+/**
+ * Management API controller slugs
+ */
+const ENDPOINT_SLUG = 'auth';
+const REGISTER_USER_SLUG = 'register';
+const LOGIN_USER_SLUG = 'login';
+
+/**
+ * Messages
+ */
+const VALIDATE_USER_MESSAGE = 'VALIDATE_USER';
+const REGISTER_USER_MESSAGE = 'REGISTER_USER';
+
+export { ENDPOINT_SLUG, REGISTER_USER_SLUG, LOGIN_USER_SLUG, VALIDATE_USER_MESSAGE, REGISTER_USER_MESSAGE };

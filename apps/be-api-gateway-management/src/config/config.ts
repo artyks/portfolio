@@ -10,6 +10,9 @@ const loadConfig = (): Config => {
   if (!process.env.BE_API_MANAGEMENT_GATEWAY_GLOBAL_PREFIX) {
     throw new Error("Provide 'BE_API_MANAGEMENT_GATEWAY_GLOBAL_PREFIX' env variable");
   }
+  if (!process.env.BE_API_MANAGEMENT_SESSION_SECRET) {
+    throw new Error("Provide 'BE_API_MANAGEMENT_SESSION_SECRET' env variable");
+  }
   if (!process.env.NODE_ENV || (process.env.NODE_ENV !== 'development' && process.env.NODE_ENV !== 'production')) {
     throw new Error(`Provide a correct 'NODE_ENV' env variable, NODE_ENV === ${process.env.NODE_ENV}`);
   }
@@ -20,6 +23,7 @@ const loadConfig = (): Config => {
       HOST: process.env.BE_API_MANAGEMENT_GATEWAY_HOST,
       GLOBAL_PREFIX: process.env.BE_API_MANAGEMENT_GATEWAY_GLOBAL_PREFIX,
     },
+    SESSION_SECRET: process.env.BE_API_MANAGEMENT_SESSION_SECRET,
   };
 };
 

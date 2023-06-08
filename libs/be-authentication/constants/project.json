@@ -1,0 +1,26 @@
+{
+  "name": "be-authentication-constants",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/be-authentication/constants/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/be-authentication/constants",
+        "main": "libs/be-authentication/constants/src/index.ts",
+        "tsConfig": "libs/be-authentication/constants/tsconfig.lib.json",
+        "assets": ["libs/be-authentication/constants/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/be-authentication/constants/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

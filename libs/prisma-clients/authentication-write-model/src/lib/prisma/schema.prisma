@@ -9,11 +9,16 @@ datasource db {
   url      = env("BE_AUTHENTICATION_WRITE_MODEL_DB_URL")
 }
 
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String
+  expiresAt DateTime
+}
+
 model User {
   id        String   @id @default(uuid())
   email     String   @unique
-  firstName String
-  lastName  String
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

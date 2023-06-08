@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { UsersModule } from './users/users.module';
 import { UsersService } from './users/users.service';
-import { AuthPrismaWriteModelClient } from '@prisma-clients/authentication-write-model';
+import { AuthWriteModule } from '@prisma-clients/authentication-write-model';
 
 @Module({
-  imports: [AuthPrismaWriteModelClient, AuthenticationModule, UsersModule],
+  imports: [AuthWriteModule, AuthenticationModule, UsersModule],
   providers: [UsersService],
 })
 class AppModule {}

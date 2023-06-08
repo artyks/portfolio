@@ -1,12 +1,14 @@
 import { ConfigService } from '@nestjs/config';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-
-import { AppModule } from './app.module';
-import { Config } from './config/config.interface';
-
 import { LogRpcExceptionsFilter } from '@common/exception-filtres';
 import { getGlobalEventBusTransport } from '@be-global-event-bus';
+import { AppModule } from './app.module';
+import { Config } from './config/config.interface';
+import session from 'express-session';
+import passport from 'passport';
+import { PrismaSessionStore } from '@quixo3/prisma-session-store';
+import { PrismaClient as AuthPrismaClient } from '@prisma-clients/authentication-write-model';
 
 const bootstrap = async () => {
   /**
@@ -39,6 +41,28 @@ const bootstrap = async () => {
   );
   app.setGlobalPrefix(GLOBAL_PREFIX);
   app.useGlobalFilters(new LogRpcExceptionsFilter());
+
+  /**
+   * Apply middleware
+   */
+  app.use(
+    session({
+      name: 'MANAGEMENT_API_GATEWAY',
+      secret: configService.get('SESSION_SECRET', { infer: true }),
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        maxAge: 24 * 60 * 60 * 1000, // 24 hr
+        secure: 'auto',
+      },
+      store: new PrismaSessionStore(new AuthPrismaClient(), {
+        checkPeriod: 2 * 60 * 1000, // 2 min
+        dbRecordIdIsSessionId: true,
+      }),
+    }),
+  );
+  app.use(passport.initialize());
+  app.use(passport.session());
 
   const {
     options: { host: EVENT_BUS_HOST, port: EVENT_BUS_PORT },

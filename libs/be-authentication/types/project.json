@@ -1,0 +1,26 @@
+{
+  "name": "be-authentication-types",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/be-authentication/types/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/be-authentication/types",
+        "main": "libs/be-authentication/types/src/index.ts",
+        "tsConfig": "libs/be-authentication/types/tsconfig.lib.json",
+        "assets": ["libs/be-authentication/types/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/be-authentication/types/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

@@ -7,6 +7,7 @@ type ConfigServer = {
 type Config = {
   MODE: 'development' | 'production';
   SERVER: ConfigServer;
+  SESSION_SECRET: string;
 };
 
 export type { Config, ConfigServer };
