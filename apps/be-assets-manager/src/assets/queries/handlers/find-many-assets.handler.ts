@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { FindManyAssetsQuery } from '../implementations/find-many-assets.query';
 import { AssetsPrismaWriteModelClient } from '@prisma-clients/assets-write-model';
-import { AssetsSpecificSortingBy } from '@be-assets-manager/constants';
+import { FindManyAssetsSortingByEnum } from '@be-assets-manager/constants';
 import { CommonSortingOrderEnum } from '@common/constants';
 import { hasNextPage } from '@common/utility';
 import { FindManyAssetsQueryResult } from '@be-assets-manager/types';
@@ -21,7 +21,9 @@ class FindManyAssetsHandler implements IQueryHandler<FindManyAssetsQuery> {
         skip: pagination?.skip,
         take: pagination?.limit,
         where: filter,
-        orderBy: { [sorting?.by || AssetsSpecificSortingBy.FILE_NAME]: sorting?.order || CommonSortingOrderEnum.ASC },
+        orderBy: {
+          [sorting?.by || FindManyAssetsSortingByEnum.CREATION_DATE]: sorting?.order || CommonSortingOrderEnum.ASC,
+        },
       }),
     ]);
 

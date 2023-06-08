@@ -4,3 +4,4 @@ export * from './lib/pages-command-controller.constants';
 export * from './lib/pages-drafts-query-controller.constants';
 export * from './lib/event-store.constants';
 export * from './lib/global-events.constants';
+export * from './lib/sorting.constants';
