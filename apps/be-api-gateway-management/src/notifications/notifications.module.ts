@@ -1,7 +1,12 @@
 import { Module } from '@nestjs/common';
 import { NotificationsController } from './notifications.controller';
+import { NotificationsService } from './notifications.service';
+import { InternalAssetsManagerController } from './internal-controllers/internal-assets-manager.controller';
 
 @Module({
-  controllers: [NotificationsController],
+  controllers: [NotificationsController, InternalAssetsManagerController],
+  providers: [NotificationsService],
 })
-export class NotificationsModule {}
+class NotificationsModule {}
+
+export { NotificationsModule };

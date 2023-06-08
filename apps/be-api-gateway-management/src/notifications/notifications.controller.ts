@@ -1,16 +1,14 @@
-import { Controller, Logger } from '@nestjs/common';
+import { Controller, Param, Sse } from '@nestjs/common';
+import { ENDPOINT_NOTIFICATIONS_SLUG } from '@notifications/constants';
+import { NotificationsService } from './notifications.service';
 
-import { EventPattern, Payload } from '@nestjs/microservices';
-
-import { PAGE_ARCHIVED_EVENT_GLOBAL } from '@be-pages/constants';
-import { ArchivePageDto } from '@be-pages/dtos';
-
-@Controller()
+@Controller(ENDPOINT_NOTIFICATIONS_SLUG)
 class NotificationsController {
-  @EventPattern(PAGE_ARCHIVED_EVENT_GLOBAL)
-  async handleGlobalPageArchived(@Payload() payload: ArchivePageDto) {
-    Logger.log('WORKS');
-    console.log({ payload });
+  constructor(private readonly notificationsService: NotificationsService) {}
+
+  @Sse(':userId')
+  subscribeToNotifications(@Param('userId') userId: string) {
+    return this.notificationsService.handleConnection(userId);
   }
 }
 
