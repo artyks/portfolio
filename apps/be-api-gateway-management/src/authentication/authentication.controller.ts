@@ -10,8 +10,8 @@ import { AUTHENTICATION_CLIENT_NAME } from '@be-authentication/utility';
 import { BadRequestException, Body, Controller, Inject, Post, UseGuards } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
-import { Public } from './decorators/public.decorator';
 import { LocalAuthLoginGuard } from './guards/auth-local-login.guard';
+import { Public } from '@be-authentication/decorators';
 
 @Controller(ENDPOINT_SLUG)
 class AuthenticationController {

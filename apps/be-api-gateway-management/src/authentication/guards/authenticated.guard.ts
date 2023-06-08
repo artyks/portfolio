@@ -1,6 +1,6 @@
+import { IS_PUBLIC_KEY } from '@be-authentication/decorators';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
 import { Request } from 'express';
 
 @Injectable()

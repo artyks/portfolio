@@ -4,9 +4,8 @@ import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { AUTHENTICATION_CLIENT_NAME } from '@be-authentication/utility';
 import { firstValueFrom } from 'rxjs';
-import { ValidateUserResult } from '@be-authentication/types';
+import { UserWithoutPassword, ValidateUserResult } from '@be-authentication/types';
 import { VALIDATE_USER_MESSAGE } from '@be-authentication/constants';
-import { User } from '@prisma-clients/authentication-write-model';
 import { isEmail, isNotEmpty, isString } from 'class-validator';
 
 @Injectable()
@@ -15,7 +14,7 @@ class LocalStrategy extends PassportStrategy(Strategy) {
     super({ usernameField: 'email' });
   }
 
-  async validate(email: string, password: string, done: CallableFunction): Promise<Omit<User, 'password'>> {
+  async validate(email: string, password: string, done: CallableFunction): Promise<UserWithoutPassword> {
     /**
      * Prevalidate email and password (validation pipe haven't triggered yet)
      */
