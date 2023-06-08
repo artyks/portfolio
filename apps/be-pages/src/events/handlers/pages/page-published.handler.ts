@@ -19,7 +19,7 @@ class PagePublishedHandler implements IEventHandler<PagePublishedEvent> {
   async handle({ payload }: PagePublishedEvent) {
     try {
       const streamName = getStreamName(PAGE_DOMAIN_NAME, payload.id);
-      const esEvent = jsonEvent<EsPagePublishedEvent>({ type: PAGE_PUBLISHED_EVENT_TYPE, data: { id: payload.id } });
+      const esEvent = jsonEvent<EsPagePublishedEvent>({ type: PAGE_PUBLISHED_EVENT_TYPE, data: { ...payload } });
       this.eventStoreService.appendToStream(streamName, esEvent);
       this.globalEventBus.emit(PAGE_PUBLISHED_EVENT_GLOBAL, payload);
     } catch (error) {

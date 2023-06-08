@@ -12,12 +12,12 @@ class ArchivePageHandler implements ICommandHandler<ArchivePageCommand> {
     this.pageRepository = pagesPrismaClient.page;
   }
 
-  async execute({ payload: { id } }: ArchivePageCommand) {
-    const pageCurrent = await this.pageRepository.findUniqueOrThrow({ where: { id } });
+  async execute({ payload }: ArchivePageCommand) {
+    const pageCurrent = await this.pageRepository.findUniqueOrThrow({ where: { id: payload.id } });
     const pageModel = new PageModel(pageCurrent);
     pageModel.archivePage();
     await this.pageRepository.update(pageModel.getPageUpdate());
-    this.localEventBus.publish(new PageArchivedEvent({ id }));
+    this.localEventBus.publish(new PageArchivedEvent({ ...payload }));
   }
 }
 

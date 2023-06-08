@@ -1,6 +1,7 @@
+import { BaseMetaDto } from '@common/dtos';
 import { IsUUID } from 'class-validator';
 
-class UnpublishPageDto {
+class UnpublishPageDto extends BaseMetaDto {
   @IsUUID()
   id: string;
 }

@@ -12,12 +12,12 @@ class PublishPageHandler implements ICommandHandler<PublishPageCommand> {
     this.pageRepository = pagesPrismaClient.page;
   }
 
-  async execute({ payload: { id } }: PublishPageCommand) {
-    const pageCurrent = await this.pageRepository.findUniqueOrThrow({ where: { id } });
+  async execute({ payload }: PublishPageCommand) {
+    const pageCurrent = await this.pageRepository.findUniqueOrThrow({ where: { id: payload.id } });
     const pageModel = new PageModel(pageCurrent);
     pageModel.publishPage();
     await this.pageRepository.update(pageModel.getPageUpdate());
-    this.localEventBus.publish(new PagePublishedEvent({ id }));
+    this.localEventBus.publish(new PagePublishedEvent({ ...payload }));
   }
 }
 

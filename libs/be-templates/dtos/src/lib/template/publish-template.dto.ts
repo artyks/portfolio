@@ -1,6 +1,7 @@
+import { BaseMetaDto } from '@common/dtos';
 import { IsUUID } from 'class-validator';
 
-class PublishTemplateDto {
+class PublishTemplateDto extends BaseMetaDto {
   @IsUUID()
   id: string;
 }

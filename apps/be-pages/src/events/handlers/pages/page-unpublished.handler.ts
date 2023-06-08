@@ -21,7 +21,7 @@ class PageUnpublishedHandler implements IEventHandler<PageUnpublishedEvent> {
       const streamName = getStreamName(PAGE_DOMAIN_NAME, payload.id);
       const esEvent = jsonEvent<EsPageUnpublishedEvent>({
         type: PAGE_UNPUBLISHED_EVENT_TYPE,
-        data: { id: payload.id },
+        data: { ...payload },
       });
       this.eventStoreService.appendToStream(streamName, esEvent);
       this.globalEventBus.emit(PAGE_UNPUBLISHED_EVENT_GLOBAL, payload);

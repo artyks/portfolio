@@ -10,6 +10,7 @@ import {
 } from '../page-element';
 import { Type } from 'class-transformer';
 import { TemplateElementType } from '@be-templates/constants';
+import { BaseMetaDto } from '@common/dtos';
 
 type CreatePageElementDtoType =
   | CreatePageTextElementDto
@@ -18,7 +19,7 @@ type CreatePageElementDtoType =
   | CreatePageMultipleChoiceElementDto
   | CreatePageNumberElementDto;
 
-class CreatePageDto {
+class CreatePageDto extends BaseMetaDto {
   @IsString()
   @IsNotEmpty()
   name: string;

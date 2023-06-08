@@ -19,7 +19,7 @@ class PageDraftCreatedHandler implements IEventHandler<PageDraftCreatedEvent> {
   async handle({ payload }: PageDraftCreatedEvent) {
     try {
       const streamName = getStreamName(PAGE_DOMAIN_NAME, payload.id);
-      const esEvent = jsonEvent<EsPageDraftCreatedEvent>({ type: PAGE_DRAFT_CREATED_EVENT_TYPE, data: payload });
+      const esEvent = jsonEvent<EsPageDraftCreatedEvent>({ type: PAGE_DRAFT_CREATED_EVENT_TYPE, data: { ...payload } });
       this.eventStoreService.appendToStream(streamName, esEvent);
       this.globalEventBus.emit(PAGE_DRAFT_CREATED_EVENT_GLOBAL, payload);
     } catch (error) {

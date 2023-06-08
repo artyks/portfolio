@@ -16,7 +16,13 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ARCHIVE_ASSET_SLUG, ENDPOINT_ASSETS_SLUG, UPLOAD_ASSET_SLUG } from './assets-manager.constants';
-import { ArchiveAssetDto, FindManyAssetsDto, UploadAssetDto as InternalUploadAssetDto } from '@be-assets-manager/dtos';
+import {
+  ArchiveAssetDto,
+  ArchiveAssetGatewayDto,
+  FindManyAssetsDto,
+  UploadAssetDto as InternalUploadAssetDto,
+  UploadAssetGatewayDto,
+} from '@be-assets-manager/dtos';
 import { ClientProxy } from '@nestjs/microservices';
 import { ASSETS_MANAGER_CLIENT_NAME } from '@be-assets-manager/utility';
 import {
@@ -32,7 +38,8 @@ import { StorageService } from '@storage';
 import crypto from 'crypto';
 import { UPLOAD_ASSET_DTO_FILE_KEY } from './constants/assets-manager.constants';
 import { FindManyAssetsQueryResult } from '@be-assets-manager/types';
-// import { UploadAssetDto as ExternalUploadAssetDto } from './dtos/upload-asset.dto';
+import { User } from '@be-authentication/decorators';
+import { UserWithoutPassword } from '@be-authentication/types';
 
 enum FileValidationErrors {
   UNSUPPORTED_FILE_TYPE = 'UNSUPPORTED_FILE_TYPE',
@@ -76,8 +83,9 @@ class AssetsManagerController {
   @UseInterceptors(FileInterceptor(UPLOAD_ASSET_DTO_FILE_KEY, composeMulterOptions()))
   async upload(
     @UploadedFile(uploadAssetParseFilePipe) file: Express.Multer.File,
-    // @Body() payload: Omit<ExternalUploadAssetDto, typeof UPLOAD_ASSET_DTO_FILE_KEY>,
+    @Body() payload: UploadAssetGatewayDto,
     @Req() req: Request,
+    @User() { id }: UserWithoutPassword,
   ) {
     if ('fileValidationError' in req && req.fileValidationError === FileValidationErrors.UNSUPPORTED_FILE_TYPE) {
       throw new BadRequestException(`Cannot retrieve file extension: unknown file mimetype: '${file.mimetype}'`);
@@ -97,6 +105,8 @@ class AssetsManagerController {
      * Emit UploadAsset event to assets-manager microservice
      */
     this.assetsManagerClient.emit<unknown, InternalUploadAssetDto>(UPLOAD_ASSET_EVENT, {
+      ...payload,
+      userId: id,
       mimetype: file.mimetype,
       originalname: file.originalname,
       privateBlobName: arrivedBlobNamePersisted,
@@ -104,8 +114,8 @@ class AssetsManagerController {
   }
 
   @Post(ARCHIVE_ASSET_SLUG)
-  archive(@Body() payload: ArchiveAssetDto) {
-    this.assetsManagerClient.emit(ARCHIVE_ASSET_EVENT, payload);
+  archive(@Body() payload: ArchiveAssetGatewayDto, @User() { id }: UserWithoutPassword) {
+    this.assetsManagerClient.emit<unknown, ArchiveAssetDto>(ARCHIVE_ASSET_EVENT, { ...payload, userId: id });
   }
 
   @Get()

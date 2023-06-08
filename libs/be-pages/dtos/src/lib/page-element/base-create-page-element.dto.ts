@@ -1,9 +1,10 @@
 import { TemplateElementType } from '@be-templates/constants';
+import { BaseMetaDto } from '@common/dtos';
 import { IsEnum, IsUUID } from 'class-validator';
 
 const PAGE_ELEMENT_DESCRIMINATOR_PROPERTY = 'type';
 
-class BaseCreatePageElementDto {
+class BaseCreatePageElementDto extends BaseMetaDto {
   @IsUUID()
   templateElementId: string;
 

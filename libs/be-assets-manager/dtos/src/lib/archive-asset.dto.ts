@@ -1,6 +1,7 @@
+import { BaseMetaDto } from '@common/dtos';
 import { IsUUID } from 'class-validator';
 
-class ArchiveAssetDto {
+class ArchiveAssetDto extends BaseMetaDto {
   @IsUUID()
   id: string;
 }

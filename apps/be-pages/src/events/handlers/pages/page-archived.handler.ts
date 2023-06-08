@@ -19,7 +19,7 @@ class PageArchivedHandler implements IEventHandler<PageArchivedEvent> {
   async handle({ payload }: PageArchivedEvent) {
     try {
       const streamName = getStreamName(PAGE_DOMAIN_NAME, payload.id);
-      const esEvent = jsonEvent<EsPageArchivedEvent>({ type: PAGE_ARCHIVED_EVENT_TYPE, data: { id: payload.id } });
+      const esEvent = jsonEvent<EsPageArchivedEvent>({ type: PAGE_ARCHIVED_EVENT_TYPE, data: { ...payload } });
       this.eventStoreService.appendToStream(streamName, esEvent);
       this.globalEventBus.emit(PAGE_ARCHIVED_EVENT_GLOBAL, payload);
     } catch (error) {

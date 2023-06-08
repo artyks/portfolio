@@ -12,12 +12,12 @@ class UnpublishPageHandler implements ICommandHandler<UnpublishPageCommand> {
     this.pageRepository = pagesPrismaClient.page;
   }
 
-  async execute({ payload: { id } }: UnpublishPageCommand) {
-    const pageCurrent = await this.pageRepository.findUniqueOrThrow({ where: { id } });
+  async execute({ payload }: UnpublishPageCommand) {
+    const pageCurrent = await this.pageRepository.findUniqueOrThrow({ where: { id: payload.id } });
     const pageModel = new PageModel(pageCurrent);
     pageModel.unpublishPage();
     await this.pageRepository.update(pageModel.getPageUpdate());
-    this.localEventBus.publish(new PageUnpublishedEvent({ id }));
+    this.localEventBus.publish(new PageUnpublishedEvent({ ...payload }));
   }
 }
 

@@ -10,11 +10,15 @@ import {
 import { FindManyTemplatesQueryResult, FindOneTemplateQueryResult } from '@be-templates/types';
 import {
   ArchiveTemplateDto,
+  ArchiveTemplateGatewayDto,
   CreateTemplateDto,
+  CreateTemplateGatewayDto,
   FindManyTemplatesDto,
   FindOneTemplateDto,
   PublishTemplateDto,
+  PublishTemplateGatewayDto,
   ReplaceTemplateDto,
+  ReplaceTemplateGatewayDto,
 } from '@be-templates/dtos';
 import { TEMPLATES_CLIENT_NAME } from '@be-templates/utility';
 import { ClientProxy } from '@nestjs/microservices';
@@ -27,29 +31,31 @@ import {
   REPLACE_TEMPLATE_EVENT,
 } from '@be-templates/constants';
 import { firstValueFrom } from 'rxjs';
+import { UserWithoutPassword } from '@be-authentication/types';
+import { User } from '@be-authentication/decorators';
 
 @Controller(ENDPOINT_TEMPLATES_SLUG)
 export class TemplatesController {
   constructor(@Inject(TEMPLATES_CLIENT_NAME) private readonly templatesClient: ClientProxy) {}
 
   @Post(CREATE_TEMPLATE_SLUG)
-  create(@Body() payload: CreateTemplateDto) {
-    this.templatesClient.emit(CREATE_TEMPLATE_EVENT, payload);
+  create(@Body() payload: CreateTemplateGatewayDto, @User() { id }: UserWithoutPassword) {
+    this.templatesClient.emit<unknown, CreateTemplateDto>(CREATE_TEMPLATE_EVENT, { ...payload, userId: id });
   }
 
   @Post(ARCHIVE_TEMPLATE_SLUG)
-  archive(@Body() payload: ArchiveTemplateDto) {
-    this.templatesClient.emit(ARCHIVE_TEMPLATE_EVENT, payload);
+  archive(@Body() payload: ArchiveTemplateGatewayDto, @User() { id }: UserWithoutPassword) {
+    this.templatesClient.emit<unknown, ArchiveTemplateDto>(ARCHIVE_TEMPLATE_EVENT, { ...payload, userId: id });
   }
 
   @Post(PUBLISH_TEMPLATE_SLUG)
-  publish(@Body() payload: PublishTemplateDto) {
-    this.templatesClient.emit(PUBLISH_TEMPLATE_EVENT, payload);
+  publish(@Body() payload: PublishTemplateGatewayDto, @User() { id }: UserWithoutPassword) {
+    this.templatesClient.emit<unknown, PublishTemplateDto>(PUBLISH_TEMPLATE_EVENT, { ...payload, userId: id });
   }
 
   @Post(REPLACE_TEMPLATE_SLUG)
-  replace(@Body() payload: ReplaceTemplateDto) {
-    this.templatesClient.emit(REPLACE_TEMPLATE_EVENT, payload);
+  replace(@Body() payload: ReplaceTemplateGatewayDto, @User() { id }: UserWithoutPassword) {
+    this.templatesClient.emit<unknown, ReplaceTemplateDto>(REPLACE_TEMPLATE_EVENT, { ...payload, userId: id });
   }
 
   @Get(FIND_ONE_TEMPLATE_SLUG)

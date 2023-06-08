@@ -5,8 +5,12 @@ import {
   SetPageMultipleChoiceElementValueDto,
   SetPageNumberElementValueDto,
   SetPageTextElementValueDto,
+  SetPageAssetElementValueGatewayDto,
+  SetPageDateTimeElementValueGatewayDto,
+  SetPageMultipleChoiceElementValueGatewayDto,
+  SetPageNumberElementValueGatewayDto,
+  SetPageTextElementValueGatewayDto,
 } from '@be-pages/dtos';
-
 import {
   SET_PAGE_ASSET_ELEMENT_VALUE_SLUG,
   SET_PAGE_DATE_TIME_ELEMENT_VALUE_SLUG,
@@ -24,34 +28,54 @@ import {
   SET_PAGE_NUMBER_ELEMENT_VALUE_EVENT,
   SET_PAGE_TEXT_ELEMENT_VALUE_EVENT,
 } from '@be-pages/constants';
+import { UserWithoutPassword } from '@be-authentication/types';
+import { User } from '@be-authentication/decorators';
 
 @Controller(ENDPOINT_PAGE_ELEMENTS_SLUG)
 class PageElementsCommandController {
   constructor(@Inject(PAGES_CLIENT_NAME) private readonly pagesClient: ClientProxy) {}
 
   @Post(SET_PAGE_TEXT_ELEMENT_VALUE_SLUG)
-  setTextElementValue(@Body() payload: SetPageTextElementValueDto) {
-    this.pagesClient.emit(SET_PAGE_TEXT_ELEMENT_VALUE_EVENT, payload);
+  setTextElementValue(@Body() payload: SetPageTextElementValueGatewayDto, @User() { id }: UserWithoutPassword) {
+    this.pagesClient.emit<unknown, SetPageTextElementValueDto>(SET_PAGE_TEXT_ELEMENT_VALUE_EVENT, {
+      ...payload,
+      userId: id,
+    });
   }
 
   @Post(SET_PAGE_NUMBER_ELEMENT_VALUE_SLUG)
-  setNumberElementValue(@Body() payload: SetPageNumberElementValueDto) {
-    this.pagesClient.emit(SET_PAGE_NUMBER_ELEMENT_VALUE_EVENT, payload);
+  setNumberElementValue(@Body() payload: SetPageNumberElementValueGatewayDto, @User() { id }: UserWithoutPassword) {
+    this.pagesClient.emit<unknown, SetPageNumberElementValueDto>(SET_PAGE_NUMBER_ELEMENT_VALUE_EVENT, {
+      ...payload,
+      userId: id,
+    });
   }
 
   @Post(SET_PAGE_ASSET_ELEMENT_VALUE_SLUG)
-  setAssetElementValue(@Body() payload: SetPageAssetElementValueDto) {
-    this.pagesClient.emit(SET_PAGE_ASSET_ELEMENT_VALUE_EVENT, payload);
+  setAssetElementValue(@Body() payload: SetPageAssetElementValueGatewayDto, @User() { id }: UserWithoutPassword) {
+    this.pagesClient.emit<unknown, SetPageAssetElementValueDto>(SET_PAGE_ASSET_ELEMENT_VALUE_EVENT, {
+      ...payload,
+      userId: id,
+    });
   }
 
   @Post(SET_PAGE_DATE_TIME_ELEMENT_VALUE_SLUG)
-  setDateTimeElementValue(@Body() payload: SetPageDateTimeElementValueDto) {
-    this.pagesClient.emit(SET_PAGE_DATE_TIME_ELEMENT_VALUE_EVENT, payload);
+  setDateTimeElementValue(@Body() payload: SetPageDateTimeElementValueGatewayDto, @User() { id }: UserWithoutPassword) {
+    this.pagesClient.emit<unknown, SetPageDateTimeElementValueDto>(SET_PAGE_DATE_TIME_ELEMENT_VALUE_EVENT, {
+      ...payload,
+      userId: id,
+    });
   }
 
   @Post(SET_PAGE_MULTIPLE_CHOICE_ELEMENT_VALUE_SLUG)
-  setMultipleChoiceElementValue(@Body() payload: SetPageMultipleChoiceElementValueDto) {
-    this.pagesClient.emit(SET_PAGE_MULTIPLE_CHOICE_ELEMENT_VALUE_EVENT, payload);
+  setMultipleChoiceElementValue(
+    @Body() payload: SetPageMultipleChoiceElementValueGatewayDto,
+    @User() { id }: UserWithoutPassword,
+  ) {
+    this.pagesClient.emit<unknown, SetPageMultipleChoiceElementValueDto>(SET_PAGE_MULTIPLE_CHOICE_ELEMENT_VALUE_EVENT, {
+      ...payload,
+      userId: id,
+    });
   }
 }
 
