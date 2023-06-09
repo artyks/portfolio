@@ -9,15 +9,19 @@ class InternalAssetsManagerController {
   constructor(private readonly notificationsService: NotificationsService) {}
 
   @EventPattern(ASSET_ARCHIVED_EVENT_GLOBAL)
-  async handleAssetArchived(@Payload() payload: ArchiveAssetDto) {
-    // TODO: add userId in payload (extend from BaseDto that handles userId and reqId?)
-    // this.notificationsService.notify(userId, { ...payload, eventName: ASSET_ARCHIVED_EVENT_GLOBAL });
+  handleAssetArchived(@Payload() { userId, requestId, ...payload }: ArchiveAssetDto) {
+    this.notificationsService.notify(userId, {
+      ...payload,
+      metadata: { eventName: ASSET_ARCHIVED_EVENT_GLOBAL, requestId },
+    });
   }
 
   @EventPattern(ASSET_UPLOADED_EVENT_GLOBAL)
-  async handleAssetUploaded(@Payload() payload: UploadAssetDto) {
-    // TODO: add userId in payload (extend from BaseDto that handles userId and reqId?)
-    // this.notificationsService.notify(userId, { ...payload, eventName: ASSET_ARCHIVED_EVENT_GLOBAL });
+  handleAssetUploaded(@Payload() { userId, requestId, ...payload }: UploadAssetDto) {
+    this.notificationsService.notify(userId, {
+      ...payload,
+      metadata: { eventName: ASSET_UPLOADED_EVENT_GLOBAL, requestId },
+    });
   }
 }
 

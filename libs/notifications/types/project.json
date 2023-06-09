@@ -1,24 +1,24 @@
 {
-  "name": "be-templates-dtos",
+  "name": "notifications-types",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/be-templates/dtos/src",
+  "sourceRoot": "libs/notifications/types/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/be-templates/dtos",
-        "main": "libs/be-templates/dtos/src/index.ts",
-        "tsConfig": "libs/be-templates/dtos/tsconfig.lib.json",
-        "assets": ["libs/be-templates/dtos/*.md"]
+        "outputPath": "dist/libs/notifications/types",
+        "main": "libs/notifications/types/src/index.ts",
+        "tsConfig": "libs/notifications/types/tsconfig.lib.json",
+        "assets": ["libs/notifications/types/*.md"]
       }
     },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/be-templates/dtos/**/*.ts"]
+        "lintFilePatterns": ["libs/notifications/types/**/*.ts"]
       }
     }
   },

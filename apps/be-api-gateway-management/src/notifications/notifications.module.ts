@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { NotificationsController } from './notifications.controller';
 import { NotificationsService } from './notifications.service';
-import { InternalAssetsManagerController } from './internal-controllers/internal-assets-manager.controller';
+import { InternalControllers } from './internal-controllers';
 
 @Module({
-  controllers: [NotificationsController, InternalAssetsManagerController],
+  controllers: [NotificationsController, ...InternalControllers],
   providers: [NotificationsService],
 })
 class NotificationsModule {}

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Subject } from 'rxjs';
-import { MessageEventData, NotificationsMessageEvent, UserId } from './notifications.types';
+import { MessageEventData, NotificationsMessageEvent, UserId } from '@notifications/types';
 
 @Injectable()
 class NotificationsService {

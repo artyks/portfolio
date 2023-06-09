@@ -44,6 +44,7 @@
       "@common/exception-filtres": ["libs/common/exception-filtres/src/index.ts"],
       "@common/utility": ["libs/common/utility/src/index.ts"],
       "@notifications/constants": ["libs/notifications/constants/src/index.ts"],
+      "@notifications/types": ["libs/notifications/types/src/index.ts"],
       "@prisma-clients/assets-write-model": ["libs/prisma-clients/assets-write-model/src/index.ts"],
       "@prisma-clients/authentication-write-model": ["libs/prisma-clients/authentication-write-model/src/index.ts"],
       "@prisma-clients/pages-read-model": ["libs/prisma-clients/pages-read-model/src/index.ts"],
