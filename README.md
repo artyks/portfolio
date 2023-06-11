@@ -2,7 +2,25 @@
 
 # Portfolio - Headless CMS
 
-## Overview
+##### Table of Contents
+
+- [Overview](#overview)
+- [Status](#status)
+- [Installation](#installation)
+- [Backend Architecture](#backend-architecture)
+  - [Big Picture](#big-picture)
+  - [Gateways](#gateways)
+  - [Pages service](#pages-service)
+  - [Dealing with eventual consistency](#dealing-with-eventual-consistency)
+  - [Templates and Assets Manager services](#templates-and-assets-manager-services)
+  - [Assets handling](#assets-handling)
+- [Frontend Architecture](#frontend-architecture)
+  - [Big Picture](#big-picture-1)
+  - [Page 'editor kick-out feature'](#page--editor-kick-out-feature)
+- [Folder Structure](#folder-structure)
+- [License](#license)
+
+## Overview <a name="overview"/>
 
 Welcome to the monorepo (Nx) with the author's portfolio project, the Headless CMS. This project aims to showcase the author's skills and expertise or their absense :)
 
@@ -15,7 +33,7 @@ The project covers the following business domains:
 
 > To speed up development, author has excluded some typical CMS features like project management, content multilanguage support, content versioning, user management, settings, etc.
 
-## Status
+## Status <a name="status"/>
 
 The project is currently under construction. As of 10.06.23 (day 10 since I started code writing), the progress is follows:
 
@@ -28,7 +46,7 @@ The project is currently under construction. As of 10.06.23 (day 10 since I star
 
 Stay tuned :)
 
-## Installation
+## Installation <a name="installation"/>
 
 Project requires [Node.js](https://nodejs.org/) v18+ to run. If you have nvm package installed, then:
 
@@ -74,9 +92,9 @@ To launch all microservices locally:
 npx nx run-many --target=serve --all --maxParallel=20
 ```
 
-## Backend Architecture
+## Backend Architecture <a name="backend-architecture"/>
 
-### Big Picture
+### Big Picture <a name="big-picture"/>
 
 Author followed mainstream and implemented a reactive event-driven architecture based on CQRS pattern. To facilitate microservices communication, author chose Redis as global event bus, which supports pub-sub and is simple to maintain. Thanks to event bus we have a lower coupling between microservices (that we all so crazy about). Additionally, it enables the implementation of distributed transactions using the choreography saga pattern.
 
@@ -90,7 +108,7 @@ Delivery API is pretty simple: it is public and serves only for GET requests of 
 
 Managament API is more interesting though, it is not publicly accessable (hello Authentication guard) and serves for managing Pages, Templates and Assets by CMS itself.
 
-### Gateways
+### Gateways <a name="gateways"/>
 
 Each API has its own Gateway (also known as BFF or Aggregation).
 
@@ -104,7 +122,7 @@ In this case, Gateways serves the following:
 
 > there could be more things like monitoring, obsevability, threat protection, load balancer, logging, etc. but author has limited resources on this project
 
-### Pages service
+### Pages service <a name="pages-service"/>
 
 Let's explore the inner workings of the Pages service in more detail. In this project, the author has implemented CQRS (Command Query Responsibility Segregation) pattern along with Event Sourcing.
 
@@ -114,7 +132,7 @@ Here is authour's illustration of actual implementation:
 
 > [ Pages PICTURE ]
 
-#### Dealing with eventual consistency
+### Dealing with eventual consistency <a name="dealing-with-eventual-consistency"/>
 
 Reactive architecture brings us a challenge - eventual consistency, which can potentially impact user experience. Author personally suffers each time when he pays taxes and sees them marked as unpaid even after refreshing the page multiple times. It's frustrating, to say the least. :)
 
@@ -126,13 +144,13 @@ The client can match the received event with the original request and enhance th
 
 > For emitting events back to the client, author utilised server-sent events (EventSource browser web API), though for production-ready projects, author would proceed with websockets, due to the limitations of EventSource API.
 
-### Templates and Assets Manager services
+### Templates and Assets Manager services <a name="templates-and-assets-manager-services"/>
 
 Both Templates and Assets share the same architecture based on CQRS pattern, though without Event Sourcing. Since these services are used by Management API only, there is no need in optimising the delivery part.
 
 > [ Templates PICTURE ]
 
-### Assets handling
+### Assets handling <a name="assets-handling"/>
 
 To handle assets, the author opted for the Google Storage service with 2 separate buckets: one for public access and another for internal intercommunication. Microservices leverage the internal bucket by sharing the blob name rather than files themselves.
 
@@ -142,9 +160,9 @@ Here is an illustration of asset uploading process:
 
 > [ Assets PICTURE ]
 
-## Frontend Architecture
+## Frontend Architecture <a name="frontend-architecture"/>
 
-### Big Picture
+### Big Picture <a name="big-picture-1"/>
 
 To bring some challenge, the author decided to leverage Microfrontends, with a dedicated application for each domain. For routing, the author used 'single-spa' framework and its 'single-spa-layout' engine. As as a module loader, author chose in-browser ES modules with SystemJS and import maps.
 
@@ -152,7 +170,7 @@ To handle global components like Notification snackbar or Menu, author provides 
 
 > [ BIG PICTURE ]
 
-### Page 'editor kick-out feature'
+### Page 'editor kick-out feature' <a name="page--editor-kick-out-feature"/>
 
 To avoid the situation when the same page is edited simultaniously be sevaral different users, the author opted to websocket protocol. It allows server to know exactly when current editor finishes editting page even in such edge cases like internet disconnection or elictricity failure on user side.
 
@@ -160,7 +178,7 @@ Here is a simple illustration of editor kick-out feature:
 
 > [ kick out PICTURE ]
 
-## Folder Structure
+## Folder Structure <a name="folder-structure"/>
 
 Author used a typical Nx workspace structure with "apps" and "libs". Hence Nx allows to quicly generate them.
 
@@ -168,10 +186,6 @@ As Nx suggests:
 
 > A common mental model is to see the application as 'containers' that link, bundle and compile functionality implemented in libraries for being deployed. As such, if we follow a 80/20 approach: place 80% of your logic into the libs/ folder, and 20% into apps/
 
-## Summary
-
-...
-
-## License
+## License <a name="license"/>
 
 The project is distributed under the MIT license.
