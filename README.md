@@ -100,7 +100,7 @@ Author followed mainstream and implemented a reactive event-driven architecture 
 
 Here is a big picture of all microservices and their relations:
 
-![Backend architecture big picture](https://storage.googleapis.com/artyks-portfolio/readme/Frame%20251.png)
+![Backend architecture big picture](https://storage.googleapis.com/artyks-portfolio/readme/Frame%20251-new.png)
 
 The Headless CMS backend consists of two APIs: Management API and Delivery API.
 
