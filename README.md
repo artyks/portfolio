@@ -100,7 +100,7 @@ Author followed mainstream and implemented a reactive event-driven architecture 
 
 Here is a big picture of all microservices and their relations:
 
-![Backend architecture big picture](https://storage.googleapis.com/artyks-portfolio/readme/photo_2023-06-13%2013.18.37.jpeg)
+![Backend architecture big picture](https://storage.googleapis.com/artyks-portfolio/readme/Frame%20251.png)
 
 The Headless CMS backend consists of two APIs: Management API and Delivery API.
 
@@ -120,12 +120,12 @@ In this project, gateways serves the following:
 
 Here is a scheme of Management API gateway:
 
-![Management API Gateway](https://storage.googleapis.com/artyks-portfolio/readme/photo_2023-06-13%2013.18.43.jpeg)
+![Management API Gateway](https://storage.googleapis.com/artyks-portfolio/readme/Frame%20253-3.png)
 _Management API Gateway_
 
 And Delivery API Gateway:
 
-![Delivery API Gateway](https://storage.googleapis.com/artyks-portfolio/readme/photo_2023-06-13%2013.18.45.jpeg)
+![Delivery API Gateway](https://storage.googleapis.com/artyks-portfolio/readme/Frame%20253-4.png)
 _Delivery API Gateway_
 
 > Gateways could also implement things like monitoring, obsevability, threat protection, load balancer, logging, etc. but author has limited resources on this project
@@ -138,7 +138,7 @@ By leveraging Event Sourcing and the EventStore projections, the Delivery API be
 
 Here is authour's illustration of actual implementation:
 
-![Pages service](https://storage.googleapis.com/artyks-portfolio/readme/photo_2023-06-13%2013.18.55.jpeg)
+![Pages service](https://storage.googleapis.com/artyks-portfolio/readme/Frame%20253.png)
 _Pages microservice_
 
 ### Dealing with eventual consistency <a name="dealing-with-eventual-consistency"/>
@@ -149,7 +149,7 @@ To fight this issue, the author decided to sign each vital request on the client
 
 The client can match the received event with the original request and enhance the user experience by providing more relevant and detailed feedback. (Author will use a Snackbar component with status messages for that.)
 
-![Notification service (SSE)](https://storage.googleapis.com/artyks-portfolio/readme/photo_2023-06-13%2013.18.41.jpeg)
+![Notification service (SSE)](https://storage.googleapis.com/artyks-portfolio/readme/Frame%20253-2.png)
 _Handling client notification_
 
 > For emitting events back to the client, author utilised server-sent events (EventSource browser web API), though for production-ready projects, author would proceed with websockets, due to the limitations of EventSource API.
@@ -158,7 +158,7 @@ _Handling client notification_
 
 Both Templates and Assets share the same architecture based on CQRS pattern, though without Event Sourcing. Since these services are used by Management API only, there is no need in optimising the delivery part.
 
-![Templates and Assets Manager services](https://storage.googleapis.com/artyks-portfolio/readme/photo_2023-06-13%2013.18.53.jpeg)
+![Templates and Assets Manager services](https://storage.googleapis.com/artyks-portfolio/readme/Frame%20253-8.png)
 _Templates and Assets Manager microservices_
 
 ### Assets handling <a name="assets-handling"/>
@@ -169,7 +169,7 @@ Additionally, in order to handle high loads and ensure the Assets Manager availa
 
 Here is an illustration of asset uploading process:
 
-![Assets upload handling](https://storage.googleapis.com/artyks-portfolio/readme/photo_2023-06-13%2013.18.39.jpeg)
+![Assets upload handling](https://storage.googleapis.com/artyks-portfolio/readme/Frame%20253-1.png)
 _Asset uploading process_
 
 ## Frontend Architecture <a name="frontend-architecture"/>
@@ -180,8 +180,8 @@ To bring some challenge, the author decided to leverage Microfrontends, with a d
 
 To handle global components like Notification snackbar or Menu, author provides MFEs with a global RxJs observable (event bus) instance during their registration, which enables MFEs intercommunication.
 
-![Frontend architecture big picture](https://storage.googleapis.com/artyks-portfolio/readme/photo_2023-06-13%2013.18.51.jpeg)
-![Frontend architecture big picture-2](https://storage.googleapis.com/artyks-portfolio/readme/photo_2023-06-13%2013.18.49.jpeg)
+![Frontend architecture big picture](https://storage.googleapis.com/artyks-portfolio/readme/Frame%20253-7.png)
+![Frontend architecture big picture-2](https://storage.googleapis.com/artyks-portfolio/readme/Frame%20253-6.png)
 _Frontend big picture_
 
 ### Page 'editor kick-out feature' <a name="page--editor-kick-out-feature"/>
@@ -190,7 +190,7 @@ To avoid the situation when the same page is edited simultaniously be sevaral di
 
 Here is a simple illustration of editor kick-out feature:
 
-![Editor kick-out feature](https://storage.googleapis.com/artyks-portfolio/readme/photo_2023-06-13%2013.18.47.jpeg)
+![Editor kick-out feature](https://storage.googleapis.com/artyks-portfolio/readme/Frame%20253-5.png)
 _Editor "kick-out" feature_
 
 ## Folder Structure <a name="folder-structure"/>
