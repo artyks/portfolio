@@ -121,12 +121,10 @@ In this project, gateways serves the following:
 Here is a scheme of Management API gateway:
 
 ![Management API Gateway](https://storage.googleapis.com/artyks-portfolio/readme/Frame%20253-3.png)
-_Management API Gateway_
 
 And Delivery API Gateway:
 
 ![Delivery API Gateway](https://storage.googleapis.com/artyks-portfolio/readme/Frame%20253-4.png)
-_Delivery API Gateway_
 
 > Gateways could also implement things like monitoring, obsevability, threat protection, load balancer, logging, etc. but author has limited resources on this project
 
@@ -170,7 +168,6 @@ Additionally, in order to handle high loads and ensure the Assets Manager availa
 Here is an illustration of asset uploading process:
 
 ![Assets upload handling](https://storage.googleapis.com/artyks-portfolio/readme/Frame%20253-1.png)
-_Asset uploading process_
 
 ## Frontend Architecture <a name="frontend-architecture"/>
 
@@ -191,7 +188,6 @@ To avoid the situation when the same page is edited simultaniously be sevaral di
 Here is a simple illustration of editor kick-out feature:
 
 ![Editor kick-out feature](https://storage.googleapis.com/artyks-portfolio/readme/Frame%20253-5.png)
-_Editor "kick-out" feature_
 
 ## Folder Structure <a name="folder-structure"/>
 
