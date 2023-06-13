@@ -178,7 +178,7 @@ To bring some challenge, the author decided to leverage Microfrontends, with a d
 To handle global components like Notification snackbar or Menu, author provides MFEs with a global RxJs observable (event bus) instance during their registration, which enables MFEs intercommunication.
 
 ![Frontend architecture big picture](https://storage.googleapis.com/artyks-portfolio/readme/Frame%20253-7.png)
-![Frontend architecture big picture-2](https://storage.googleapis.com/artyks-portfolio/readme/Frame%20253-6.png)
+![Frontend architecture big picture-2](https://storage.googleapis.com/artyks-portfolio/readme/Frame%20253-6-new.png)
 _Frontend big picture_
 
 ### Page 'editor kick-out feature' <a name="page--editor-kick-out-feature"/>
