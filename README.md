@@ -167,7 +167,7 @@ Additionally, in order to handle high loads and ensure the Assets Manager availa
 
 Here is an illustration of asset uploading process:
 
-![Assets upload handling](https://storage.googleapis.com/artyks-portfolio/readme/Frame%20253-1.png)
+![Assets upload handling](https://storage.googleapis.com/artyks-portfolio/readme/Frame%20253-1-new.png)
 
 ## Frontend Architecture <a name="frontend-architecture"/>
 
