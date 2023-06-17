@@ -30,13 +30,20 @@
     <script type="systemjs-importmap">
       {
         "imports": {
-          "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@5.9.0/lib/system/single-spa.min.js"
+          "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@5.9.0/lib/system/single-spa.min.js",
+          "single-spa-react": "https://unpkg.com/single-spa-react@5.0.0/lib/system/single-spa-react.js"
         }
       }
     </script>
     <link
       rel="preload"
       href="https://cdn.jsdelivr.net/npm/single-spa@5.9.0/lib/system/single-spa.min.js"
+      as="script"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="https://unpkg.com/single-spa-react@5.0.0/lib/system/single-spa-react.js"
       as="script"
       crossorigin="anonymous"
     />
@@ -48,8 +55,12 @@
     <script type="systemjs-importmap">
       {
         "imports": {
-          "@single-spa/welcome": "https://unpkg.com/single-spa-welcome/dist/single-spa-welcome.js",
-          "@portfolio/root-config": "//localhost:5000/portfolio-root-config.js"
+          "@portfolio/header": "//localhost:5001/main.js",
+          "@portfolio/footer": "//localhost:5002/main.js",
+          "@portfolio/pages": "//localhost:5003/main.js",
+          "@portfolio/templates": "//localhost:5004/main.js",
+          "@portfolio/assets-manager": "//localhost:5005/main.js",
+          "@portfolio/root-config": "//localhost:5000/main.js"
         }
       }
     </script>

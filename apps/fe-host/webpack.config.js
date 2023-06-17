@@ -8,6 +8,10 @@ module.exports = composePlugins(withNx(), (config) => {
   const projectName = 'root-config';
   const isDev = config.mode === 'development';
 
+  console.log(process.env.NODE_ENV);
+
+  console.log({ mode: config.mode });
+
   return merge(config, {
     output: {
       libraryTarget: 'system',
@@ -43,6 +47,19 @@ module.exports = composePlugins(withNx(), (config) => {
     externals: ['single-spa'],
     resolve: {
       extensions: ['.mjs', '.js', '.jsx', '.wasm', '.json', '.ts', '.tsx'],
+    },
+    devtool: 'source-map',
+    devServer: {
+      historyApiFallback: true,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+      client: {
+        webSocketURL: {
+          hostname: 'localhost',
+        },
+      },
+      allowedHosts: 'all',
     },
   });
 });

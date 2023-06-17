@@ -1,0 +1,90 @@
+{
+  "name": "fe-assets-manager",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/fe-assets-manager/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "web",
+        "compiler": "babel",
+        "outputPath": "dist/apps/fe-assets-manager",
+        "outputFileName": "main.js",
+        "index": "apps/fe-assets-manager/src/index.html",
+        "baseHref": "/",
+        "main": "apps/fe-assets-manager/src/main.tsx",
+        "tsConfig": "apps/fe-assets-manager/tsconfig.app.json",
+        "assets": ["apps/fe-assets-manager/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/fe-assets-manager/webpack.config.js",
+        "vendorChunk": false
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/fe-assets-manager/src/environments/environment.ts",
+              "with": "apps/fe-assets-manager/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": false,
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/webpack:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "fe-assets-manager:build",
+        "port": 5005
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "fe-assets-manager:build:development"
+        },
+        "production": {
+          "buildTarget": "fe-assets-manager:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/fe-assets-manager/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "fe-assets-manager:build"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/fe-assets-manager/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

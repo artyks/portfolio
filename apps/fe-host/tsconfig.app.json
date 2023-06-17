@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "files": ["src/portfolio-root-config.ts"],
+  "files": ["src/main.ts"],
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "esModuleInterop": true,

@@ -1,0 +1,90 @@
+{
+  "name": "fe-footer",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/fe-footer/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "web",
+        "compiler": "babel",
+        "outputPath": "dist/apps/fe-footer",
+        "outputFileName": "main.js",
+        "index": "apps/fe-footer/src/index.html",
+        "baseHref": "/",
+        "main": "apps/fe-footer/src/main.tsx",
+        "tsConfig": "apps/fe-footer/tsconfig.app.json",
+        "assets": ["apps/fe-footer/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/fe-footer/webpack.config.js",
+        "vendorChunk": false
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/fe-footer/src/environments/environment.ts",
+              "with": "apps/fe-footer/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": false,
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/webpack:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "fe-footer:build",
+        "port": 5002
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "fe-footer:build:development"
+        },
+        "production": {
+          "buildTarget": "fe-footer:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/fe-footer/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "fe-footer:build"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/fe-footer/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

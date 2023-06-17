@@ -29,6 +29,21 @@
       "linter": "eslint",
       "unitTestRunner": "jest",
       "e2eTestRunner": "cypress"
+    },
+    "@nx/react": {
+      "application": {
+        "style": "scss",
+        "linter": "eslint",
+        "bundler": "webpack",
+        "babel": true
+      },
+      "component": {
+        "style": "scss"
+      },
+      "library": {
+        "style": "scss",
+        "linter": "eslint"
+      }
     }
   }
 }

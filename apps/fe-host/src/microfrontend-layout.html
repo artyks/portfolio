@@ -1,18 +1,25 @@
 <single-spa-router>
-  <!-- Example layouts you might find helpful:
-
-  <nav>
-    <application name="@org/navbar"></application>
-  </nav>
-  <route path="settings">
-    <application name="@org/settings"></application>
-  </route>
-
-  -->
+  <header>
+    <application name="@portfolio/header"></application>
+  </header>
 
   <main>
+    <route path="pages">
+      <application name="@portfolio/pages"></application>
+    </route>
+    <route path="templates">
+      <application name="@portfolio/templates"></application>
+    </route>
+    <route path="assets-manager">
+      <application name="@portfolio/assets-manager"></application>
+    </route>
+
     <route default>
-      <application name="@single-spa/welcome"></application>
+      <application name="@portfolio/pages"></application>
     </route>
   </main>
+
+  <footer>
+    <application name="@portfolio/footer"></application>
+  </footer>
 </single-spa-router>

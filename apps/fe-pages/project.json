@@ -1,0 +1,90 @@
+{
+  "name": "fe-pages",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/fe-pages/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "web",
+        "compiler": "babel",
+        "outputPath": "dist/apps/fe-pages",
+        "outputFileName": "main.js",
+        "index": "apps/fe-pages/src/index.html",
+        "baseHref": "/",
+        "main": "apps/fe-pages/src/main.tsx",
+        "tsConfig": "apps/fe-pages/tsconfig.app.json",
+        "assets": ["apps/fe-pages/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/fe-pages/webpack.config.js",
+        "vendorChunk": false
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/fe-pages/src/environments/environment.ts",
+              "with": "apps/fe-pages/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": false,
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/webpack:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "fe-pages:build",
+        "port": 5003
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "fe-pages:build:development"
+        },
+        "production": {
+          "buildTarget": "fe-pages:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/fe-pages/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "fe-pages:build"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/fe-pages/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
