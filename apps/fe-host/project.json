@@ -1,0 +1,64 @@
+{
+  "name": "fe-host",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/fe-host/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/fe-host",
+        "compiler": "babel",
+        "main": "apps/fe-host/src/portfolio-root-config.ts",
+        "outputFileName": "portfolio-root-config.js",
+        "index": "apps/fe-host/src/index.ejs",
+        "tsConfig": "apps/fe-host/tsconfig.app.json",
+        "webpackConfig": "apps/fe-host/webpack.config.js",
+        "assets": ["apps/fe-host/src/favicon.ico"],
+        "baseHref": "/",
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "outputHashing": "none",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/fe-host/src/environments/environment.ts",
+              "with": "apps/fe-host/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/webpack:dev-server",
+      "options": {
+        "buildTarget": "fe-host:build",
+        "port": 5000
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "fe-host:build:production"
+        },
+        "development": {
+          "buildTarget": "fe-host:build:development"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/fe-host/**/*.ts"]
+      }
+    }
+  }
+}
